@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 12:11:06
- * @LastEditTime: 2022-05-13 10:04:07
+ * @LastEditTime: 2022-05-13 17:20:13
  * @Description: Modify here please
  */
 const path = require('path')
@@ -30,8 +30,13 @@ const config = {
   sourceRoot: 'src',
   outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: isOpenDevTools
-    ? ['@tarojs/plugin-html', '@tarojs/plugin-vue-devtools', 'taro-plugin-pinia']
-    : ['@tarojs/plugin-html', 'taro-plugin-pinia'],
+    ? [
+        '@tarojs/plugin-html',
+        '@tarojs/plugin-vue-devtools',
+        'taro-plugin-pinia',
+        '@tarojs/plugin-framework-vue3',
+      ]
+    : ['@tarojs/plugin-html', 'taro-plugin-pinia', '@tarojs/plugin-framework-vue3'],
   defineConstants: {},
   copy: {
     patterns: [],

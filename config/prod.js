@@ -1,9 +1,17 @@
+/*
+ * @Author: xuanyu
+ * @LastEditors: xuanyu
+ * @email: 969718197@qq.com
+ * @github: https://github.com/z-xuanyu
+ * @Date: 2022-05-13 09:44:32
+ * @LastEditTime: 2022-05-13 16:12:50
+ * @Description: Modify here please
+ */
 module.exports = {
   env: {
-    NODE_ENV: '"production"'
+    NODE_ENV: '"production"',
   },
-  defineConstants: {
-  },
+  defineConstants: {},
   mini: {},
   h5: {
     /**
@@ -14,5 +22,5 @@ module.exports = {
      *     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
      * }
      */
-  }
+  },
 }
