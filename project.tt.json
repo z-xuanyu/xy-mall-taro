@@ -1,0 +1,9 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "XYMALL",
+  "appid": "touristappid",
+  "setting": {
+    "es6": false,
+    "minified": false
+  }
+}
