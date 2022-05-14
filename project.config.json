@@ -1,36 +1,45 @@
 {
   "miniprogramRoot": "dist/weapp/",
-  "projectname": "WechatAppDemo",
+  "projectname": "XYMALL",
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "appid": "wx00af2d3955d230c2",
   "setting": {
     "urlCheck": false,
     "es6": false,
-    "postcss": false,
-    "minified": false,
-    "coverView": true,
-    "lazyloadPlaceholderEnable": false,
-    "preloadBackgroundData": false,
-    "autoAudits": false,
-    "uglifyFileName": false,
-    "uploadWithSourceMap": true,
     "enhance": true,
-    "useMultiFrameRuntime": true,
+    "postcss": false,
+    "preloadBackgroundData": false,
+    "minified": false,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
     "showShadowRootInWxmlPanel": true,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "useStaticServer": true,
-    "showES6CompileOption": false,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
     "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": false,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
+    "useIsolateContext": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
     "disableUseStrict": false,
+    "minifyWXML": true,
+    "showES6CompileOption": false,
     "useCompilerPlugins": false,
-    "minifyWXML": true
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.24.2",
@@ -39,9 +48,9 @@
     "ignore": [],
     "include": []
   },
-  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "condition": {}
 }

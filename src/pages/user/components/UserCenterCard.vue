@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-05-13 17:39:43
+ * @LastEditTime: 2022-05-14 15:09:16
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
@@ -94,12 +94,18 @@ function gotoUserEditPage() {
   left: 0;
   width: 100%;
   height: 240px;
+  /*  #ifdef h5 */
+  height: 180px;
+  /*  #endif  */
   background-image: url('../../../assets/images/user/user-center-bg-v1.png');
   background-size: cover;
   background-repeat: no-repeat;
   padding: 0 12px;
   &__header {
     margin-top: 96px;
+    /*  #ifdef h5 */
+    margin-top: 20px;
+    /*  #endif  */
     margin-bottom: 24px;
     height: 48px;
     line-height: 24px;
