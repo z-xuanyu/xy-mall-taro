@@ -4,13 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 12:11:06
- * @LastEditTime: 2022-05-13 15:33:12
- * @Description: Modify here please
+ * @LastEditTime: 2022-05-16 18:16:20
+ * @Description: 程序入口文件
  */
 import { createApp } from 'vue'
 import { setupStore } from '@/stores'
 import { useSystem } from '@/stores/modules/system'
-import { Button, Icon, Tag, Price, Swiper, SwiperItem, Avatar } from '@nutui/nutui-taro'
+import { setupNutUI } from '@/nut-ui'
 import Taro from '@tarojs/taro'
 import './app.scss'
 
@@ -39,12 +39,8 @@ const App = createApp({
   },
   // 入口组件不需要实现 render 方法，即使实现了也会被 taro 所覆盖
 })
-App.use(Icon)
-  .use(Button)
-  .use(Tag)
-  .use(Price)
-  .use(Swiper)
-  .use(SwiperItem)
-  .use(Avatar)
+// nut ui
+setupNutUI(App)
+// store
 setupStore(App)
 export default App

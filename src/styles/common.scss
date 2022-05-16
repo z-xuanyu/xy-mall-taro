@@ -9,3 +9,144 @@ page {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+// 颜色
+$colors: (
+  'primary': #00a0e9,
+  'white': #fff,
+  'grey': #ccc,
+);
+@each $colorKey, $color in $colors {
+  // 文本颜色
+  .text-#{$colorKey} {
+    color: $color;
+  }
+
+  // 背景颜色
+  .bg-color-#{$colorKey} {
+    background-color: $color;
+  }
+
+  // 边框颜色
+  .border-color-#{$colorKey} {
+    border-color: $color;
+  }
+}
+//文本对齐
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var;
+  }
+}
+// 文本大小
+$fontSizes: (
+  xs: 12px,
+  sm: 14px,
+  base: 16px,
+  lg: 18px,
+  xl: 20px,
+  2xl: 24px,
+  3xl: 30px,
+  4xl: 36px,
+  5xl: 48px,
+);
+@each $fontSizeKey, $fontSize in $fontSizes {
+  .text-#{$fontSizeKey} {
+    font-size: $fontSize;
+  }
+}
+//  flex布局
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+.flex-1 {
+  flex: 1;
+}
+$flexJustify: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'between': space-between,
+  'around': space-around,
+);
+@each $justifyKey, $justify in $flexJustify {
+  .justify-#{$justifyKey} {
+    justify-content: $justify;
+  }
+}
+$flexAlign: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'baseline': baseline,
+  'stretch': stretch,
+);
+@each $alignKey, $align in $flexAlign {
+  .align-#{$alignKey} {
+    align-items: $align;
+  }
+  .items-#{$alignKey} {
+    align-items: $align;
+  }
+}
+
+// spacing 边距
+$spacingTypes: (
+  m: margin,
+  p: padding,
+);
+$spacingDirections: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+$spacingSizes: (
+  0: 0,
+  1: 4,
+  2: 8,
+  3: 12,
+  4: 16,
+  5: 20,
+  6: 24,
+  7: 28,
+  8: 32,
+  9: 36,
+  10: 40,
+  11: 44,
+  12: 48,
+);
+@each $typeKey, $type in $spacingTypes {
+  // 全边
+  @each $sizeKey, $size in $spacingSizes {
+    .#{$type} {
+      #{$type}: #{$size}px;
+    }
+  }
+
+  // 轴边
+  @each $sizeKey, $size in $spacingSizes {
+    // 水平方向
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: #{$size}px;
+      #{$type}-right: #{$size}px;
+    }
+    // 垂直方式
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: #{$size}px;
+      #{$type}-bottom: #{$size}px;
+    }
+  }
+  // 各个方向
+  @each $directionKey, $direction in $spacingDirections {
+    @each $sizeKey, $size in $spacingSizes {
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: #{$size}px;
+      }
+    }
+  }
+}

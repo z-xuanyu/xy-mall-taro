@@ -4,13 +4,19 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:33
- * @LastEditTime: 2022-05-13 14:40:20
+ * @LastEditTime: 2022-05-16 12:00:04
  * @Description: 主配置文件
  */
 import { TabBarItem } from '@tarojs/taro'
 
 export default defineAppConfig({
   pages: ['pages/index/index', 'pages/cart/index', 'pages/category/index', 'pages/user/index'],
+  subPackages: [
+    {
+      root: 'pages/goods',
+      pages: ['detail/index'],
+    },
+  ],
   window: {
     backgroundColor: '#fff',
     backgroundTextStyle: 'light',
