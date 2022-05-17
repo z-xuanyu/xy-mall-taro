@@ -4,13 +4,21 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:33
- * @LastEditTime: 2022-05-16 12:00:04
+ * @LastEditTime: 2022-05-17 11:03:12
  * @Description: 主配置文件
  */
 import { TabBarItem } from '@tarojs/taro'
 
 export default defineAppConfig({
-  pages: ['pages/index/index', 'pages/cart/index', 'pages/category/index', 'pages/user/index'],
+  pages: [
+    'pages/index/index',
+    'pages/cart/index',
+    'pages/category/index',
+    'pages/user/index',
+    'pages/user/history/index',
+    'pages/user/address/index',
+    'pages/user/address/edit/index',
+  ],
   subPackages: [
     {
       root: 'pages/goods',

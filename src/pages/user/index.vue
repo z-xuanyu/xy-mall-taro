@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-14 16:50:08
+ * @LastEditTime: 2022-05-17 10:22:17
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -12,6 +12,7 @@ import { defineComponent, ref } from 'vue'
 import { Cell, CellGroup } from '@nutui/nutui-taro'
 import UserCenterCard from './components/UserCenterCard.vue'
 import OrderGroup from './components/OrderGroup.vue'
+import Taro from '@tarojs/taro'
 defineComponent({
   name: 'UserPage',
 })
@@ -55,6 +56,50 @@ const orderTagInfos = ref([
     status: 1,
   },
 ])
+
+const jumpArr = ref([
+  {
+    title: '浏览历史',
+    url: '/pages/user/history/index',
+  },
+  {
+    title: '商品收藏',
+    url: '/pages/user/history/index',
+  },
+
+  {
+    title: '收货地址',
+    url: '/pages/user/address/index',
+  },
+  {
+    title: '优惠卷',
+    url: '/pages/user/coupon/index',
+    desc: '5张',
+  },
+  {
+    title: '积分',
+    url: '/pages/user/integral/index',
+  },
+  {
+    title: '帮助中心',
+    url: '/pages/user/help/index',
+  },
+  {
+    title: '客服热线',
+    url: '/pages/user/service/index',
+  },
+])
+
+interface jumpItem {
+  title: string
+  url: string
+  desc?: string
+}
+const jumpPage = (item: jumpItem) => {
+  Taro.navigateTo({
+    url: item.url,
+  })
+}
 </script>
 
 <template>
@@ -66,13 +111,14 @@ const orderTagInfos = ref([
       </view>
       <!-- celL 菜单 -->
       <CellGroup>
-        <Cell title="浏览历史" is-link></Cell>
-        <Cell title="商品收藏" is-link></Cell>
-        <Cell title="收货地址" is-link></Cell>
-        <Cell title="优惠卷" is-link desc="5"></Cell>
-        <Cell title="积分" is-link></Cell>
-        <Cell title="帮助中心" is-link></Cell>
-        <Cell title="客服热线" is-link></Cell>
+        <Cell
+          :title="item.title"
+          :desc="item.desc"
+          v-for="(item, index) in jumpArr"
+          :key="index"
+          is-link
+          @click="jumpPage(item)"
+        ></Cell>
       </CellGroup>
     </view>
     <!-- 底部版权 -->

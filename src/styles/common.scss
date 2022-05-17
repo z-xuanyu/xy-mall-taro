@@ -123,7 +123,7 @@ $spacingSizes: (
 @each $typeKey, $type in $spacingTypes {
   // 全边
   @each $sizeKey, $size in $spacingSizes {
-    .#{$type} {
+    .#{$typeKey}-#{$sizeKey} {
       #{$type}: #{$size}px;
     }
   }
