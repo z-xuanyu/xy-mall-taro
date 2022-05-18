@@ -4,16 +4,23 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-05-18 15:50:52
+ * @LastEditTime: 2022-05-18 16:41:36
  * @Description: Modify here please
 -->
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { defineComponent } from 'vue'
 import AddressCard from './components/AddressCard.vue'
 
 defineComponent({
   name: 'OrderConfirmPage',
 })
+
+function jumpReceipt() {
+  Taro.navigateTo({
+    url: '/pages/order/receipt/index',
+  })
+}
 </script>
 
 <template>
@@ -58,24 +65,24 @@ defineComponent({
       </view>
       <view class="flex justify-between py-2">
         <text>优惠券</text>
-        <text>
+        <view>
           <text>选择优惠券</text>
           <nut-icon size="12" name="right" />
-        </text>
+        </view>
       </view>
       <view class="flex justify-between py-2">
         <text>发票</text>
-        <text>
+        <view @click="jumpReceipt">
           <text>暂不开发票</text>
           <nut-icon size="12" name="right" />
-        </text>
+        </view>
       </view>
       <view class="flex justify-between py-2">
         <text>订单备注</text>
-        <text>
+        <view>
           <text>选填，建议先和商家沟通确认</text>
           <nut-icon size="12" name="right" />
-        </text>
+        </view>
       </view>
     </view>
     <view class="submit-btn px-3 bg-white safe-area-bottom items-end flex justify-between">

@@ -34,6 +34,13 @@
           "query": "keyword=",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "发票页面",
+          "pathName": "pages/order/receipt/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
