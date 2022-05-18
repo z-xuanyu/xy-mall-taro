@@ -27,6 +27,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "搜索页面",
+          "pathName": "pages/goods/search/index",
+          "query": "keyword=",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

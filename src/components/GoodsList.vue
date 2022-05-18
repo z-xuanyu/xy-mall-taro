@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-05-16 12:09:11
+ * @LastEditTime: 2022-05-18 15:57:29
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -26,7 +26,7 @@ function jumpDetai() {
           src="https://img14.360buyimg.com/ceco/s300x300_jfs/t1/126663/31/12341/83168/5f58b7fbE1e7b3333/f0c9c03054652024.jpg!q70.jpg"
         />
       </view>
-      <view class="goods-list__item-title">
+      <view class="goods-list__item-title text-overflow-2">
         雅迪 双重减震 电动车雅迪 双重减震 电动车雅迪 双重减震 电动车
       </view>
       <view class="goods-list__item-tag">
@@ -51,24 +51,14 @@ function jumpDetai() {
     background-color: #fff;
     margin: 5px;
     overflow: hidden;
-    &-img {
+    border-radius: 5px;
+    image {
       height: 210px;
-      image {
-        width: 100%;
-      }
+      width: 100%;
     }
     &-title {
       font-size: 14px;
       color: #333;
-      display: -webkit-box;
-      font-weight: 400;
-      height: 36px;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      word-break: break-word;
-      line-height: 18px;
-      margin: 5px;
     }
     &-tag {
       padding: 5px;
