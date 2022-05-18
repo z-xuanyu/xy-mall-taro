@@ -4,12 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-17 10:22:17
+ * @LastEditTime: 2022-05-18 10:07:38
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue'
-import { Cell, CellGroup } from '@nutui/nutui-taro'
 import UserCenterCard from './components/UserCenterCard.vue'
 import OrderGroup from './components/OrderGroup.vue'
 import Taro from '@tarojs/taro'
@@ -110,16 +109,16 @@ const jumpPage = (item: jumpItem) => {
         <OrderGroup :orderTagInfos="orderTagInfos" />
       </view>
       <!-- celL 菜单 -->
-      <CellGroup>
-        <Cell
+      <nut-cell-group>
+        <nut-cell
           :title="item.title"
           :desc="item.desc"
           v-for="(item, index) in jumpArr"
           :key="index"
           is-link
           @click="jumpPage(item)"
-        ></Cell>
-      </CellGroup>
+        ></nut-cell>
+      </nut-cell-group>
     </view>
     <!-- 底部版权 -->
     <view class="footer__version">

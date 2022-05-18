@@ -4,12 +4,12 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 17:43:18
- * @LastEditTime: 2022-05-14 16:05:08
+ * @LastEditTime: 2022-05-18 10:09:56
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { Cell, CellGroup, Badge } from '@nutui/nutui-taro'
+import { Badge } from '@nutui/nutui-taro'
 
 interface OrderTagInfoItem {
   orderNum: number
@@ -58,9 +58,9 @@ function onClickTop() {
 
 <template>
   <view class="order-group">
-    <CellGroup v-if="isTop">
-      <Cell title="我的订单" desc="全部订单" @click="onClickTop" is-link></Cell>
-    </CellGroup>
+    <nut-cell-group v-if="isTop">
+      <nut-cell title="我的订单" desc="全部订单" @click="onClickTop" is-link />
+    </nut-cell-group>
     <view class="order-group__content">
       <view
         class="order-group__item"

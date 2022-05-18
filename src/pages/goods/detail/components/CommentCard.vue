@@ -4,11 +4,10 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 14:47:31
- * @LastEditTime: 2022-05-16 15:12:27
+ * @LastEditTime: 2022-05-18 10:06:39
  * @Description: Modify here please
 -->
 <script setup lang="ts">
-import { Cell, CellGroup } from '@nutui/nutui-taro'
 import { ref } from 'vue'
 
 const rateValue = ref(5)
@@ -16,9 +15,9 @@ const rateValue = ref(5)
 
 <template>
   <view class="comment-card">
-    <CellGroup>
-      <Cell title="商品评价(47)" is-link value="98.8% 好评" />
-    </CellGroup>
+    <nut-cell-group>
+      <nut-cell title="商品评价(47)" is-link value="98.8% 好评" />
+    </nut-cell-group>
     <view class="comment-card__content">
       <view class="comment-card__content-top">
         <nut-avatar

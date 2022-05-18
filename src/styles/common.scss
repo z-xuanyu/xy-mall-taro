@@ -10,6 +10,26 @@ page {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.text-overflow-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  word-break: break-all;
+}
+.text-overflow-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  word-break: break-all;
+}
 // 颜色
 $colors: (
   'primary': #00a0e9,
