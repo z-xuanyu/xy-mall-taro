@@ -4,10 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 11:56:53
- * @LastEditTime: 2022-05-18 14:10:14
+ * @LastEditTime: 2022-05-18 14:19:35
  * @Description: Modify here please
 -->
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { ref } from 'vue'
 
 // eslint-disable-next-line no-undef
@@ -31,6 +32,13 @@ const props = defineProps({
 })
 
 const isAllSelected = ref(props.isAllSelected)
+
+function handleToSettle() {
+  // 跳转到结算页面
+  Taro.navigateTo({
+    url: '/pages/order/order-confirm/index',
+  })
+}
 </script>
 
 <template>
@@ -46,7 +54,7 @@ const isAllSelected = ref(props.isAllSelected)
         <view class="text-xs text-grey mt-1"> 已优惠￥100 </view>
       </view>
     </view>
-    <nut-button type="primary">去结算(0)</nut-button>
+    <nut-button type="primary" @click="handleToSettle">去结算(0)</nut-button>
   </view>
 </template>
 

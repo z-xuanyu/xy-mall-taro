@@ -35,6 +35,8 @@ $colors: (
   'primary': #00a0e9,
   'white': #ffffff,
   'grey': #999999,
+  'black': #000000,
+  'red': #ff0000,
 );
 @each $colorKey, $color in $colors {
   // 文本颜色

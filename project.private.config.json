@@ -20,6 +20,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "订单确认",
+          "pathName": "pages/order/order-confirm/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
