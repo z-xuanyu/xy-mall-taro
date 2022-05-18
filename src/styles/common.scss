@@ -33,8 +33,8 @@ page {
 // 颜色
 $colors: (
   'primary': #00a0e9,
-  'white': #fff,
-  'grey': #ccc,
+  'white': #ffffff,
+  'grey': #999999,
 );
 @each $colorKey, $color in $colors {
   // 文本颜色
@@ -43,7 +43,7 @@ $colors: (
   }
 
   // 背景颜色
-  .bg-color-#{$colorKey} {
+  .bg-#{$colorKey} {
     background-color: $color;
   }
 
@@ -71,8 +71,13 @@ $fontSizes: (
   5xl: 48px,
 );
 @each $fontSizeKey, $fontSize in $fontSizes {
+  // 文本大小
   .text-#{$fontSizeKey} {
     font-size: $fontSize;
+  }
+  // 圆角
+  .rounded-#{$fontSizeKey} {
+    border-radius: $fontSize;
   }
 }
 //  flex布局

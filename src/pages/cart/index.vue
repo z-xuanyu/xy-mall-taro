@@ -4,14 +4,14 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-05-14 16:26:53
+ * @LastEditTime: 2022-05-18 12:11:28
  * @Description: 购物车
 -->
 <script setup lang="ts">
 import { Card, Navbar } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
 import { defineComponent, ref, computed } from 'vue'
-
+import CartBar from './components/CartBar.vue'
 defineComponent({
   name: 'cartPage',
 })
@@ -50,6 +50,8 @@ const cartList = ref([
     shopName: '阳澄湖大闸蟹自营店>',
   },
 ])
+
+const checkboxgroup1 = ref([])
 </script>
 
 <template>
@@ -65,19 +67,27 @@ const cartList = ref([
 
     <!-- 购物车列表 -->
     <view class="cart-list">
-      <view class="cart-list__item" v-for="(item, index) in cartList" :key="index">
-        <Card
-          :img-url="item.imgUrl"
-          :title="item.title"
-          :price="item.price"
-          :vipPrice="item.vipPrice"
-          :shopDesc="item.shopDesc"
-          :delivery="item.delivery"
-          :shopName="item.shopName"
+      <nut-checkboxgroup v-model="checkboxgroup1">
+        <view
+          class="cart-list__item bg-white flex items-center my-3 py-2"
+          v-for="(item, index) in cartList"
+          :key="index"
         >
-        </Card>
-      </view>
+          <nut-checkbox label="1"></nut-checkbox>
+          <Card
+            :img-url="item.imgUrl"
+            :title="item.title"
+            :price="item.price"
+            :vipPrice="item.vipPrice"
+            :shopDesc="item.shopDesc"
+            :delivery="item.delivery"
+            :shopName="item.shopName"
+          >
+          </Card>
+        </view>
+      </nut-checkboxgroup>
     </view>
+    <CartBar></CartBar>
   </view>
 </template>
 
@@ -91,5 +101,8 @@ const cartList = ref([
   /*! autoprefixer: off */
   -webkit-box-orient: vertical;
   /* autoprefixer: on */
+}
+.nut-card__left > .h5-img {
+  border-radius: 5px;
 }
 </style>
