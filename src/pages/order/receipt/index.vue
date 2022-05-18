@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 16:35:31
- * @LastEditTime: 2022-05-18 17:46:07
+ * @LastEditTime: 2022-05-18 17:58:39
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -26,30 +26,30 @@ const invoiceJson = ref({
   ],
 })
 
-const receiptIndex = ref(0)
+const receiptIndex = ref<number>(0)
 const receipts = ref([
   { title: '不开发票', id: 0, name: 'receipt' },
   { title: '电子发票', id: 1, name: 'receipt' },
 ])
-function onReceiptBtn(id: number) {
+function onReceiptBtn(id: number): void {
   receiptIndex.value = id
 }
 
-const addressTagsIndex = ref(0)
+const addressTagsIndex = ref<number>(0)
 const addressTags = ref([
   { title: '个人', id: 0, name: 'addressTags', type: 1 },
   { title: '公司', id: 1, name: 'addressTags', type: 2 },
 ])
-function onAddressTagBtn(id: number) {
+function onAddressTagBtn(id: number): void {
   addressTagsIndex.value = id
 }
 
-const goodsClassesIndex = ref(0)
+const goodsClassesIndex = ref<number>(0)
 const goodsClasses = ref([
   { title: '商品明细', id: 0, name: 'goodsClasses' },
   { title: '商品类别', id: 1, name: 'goodsClasses' },
 ])
-function onGoodsClassBtn(id: number) {
+function onGoodsClassBtn(id: number): void {
   goodsClassesIndex.value = id
 }
 

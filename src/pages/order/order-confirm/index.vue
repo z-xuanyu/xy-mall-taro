@@ -4,8 +4,8 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-05-18 16:41:36
- * @Description: Modify here please
+ * @LastEditTime: 2022-05-18 18:08:02
+ * @Description: 确认订单
 -->
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
@@ -16,9 +16,17 @@ defineComponent({
   name: 'OrderConfirmPage',
 })
 
-function jumpReceipt() {
+// 跳转发票页面
+function jumpReceipt(): void {
   Taro.navigateTo({
     url: '/pages/order/receipt/index',
+  })
+}
+
+// 提交订单
+function onSubmitOrder(): void {
+  Taro.navigateTo({
+    url: '/pages/order/pay-success/index',
   })
 }
 </script>
@@ -93,7 +101,7 @@ function jumpReceipt() {
           <text class="text-sm">小计</text>
           <nut-price :price="4273" size="normal" :thousands="true" />
         </view>
-        <nut-button type="primary">提交订单</nut-button>
+        <nut-button type="primary" @click="onSubmitOrder">提交订单</nut-button>
       </view>
     </view>
   </view>
