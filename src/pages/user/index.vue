@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-18 10:07:38
+ * @LastEditTime: 2022-05-18 11:06:59
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -59,33 +59,33 @@ const orderTagInfos = ref([
 const jumpArr = ref([
   {
     title: '浏览历史',
-    url: '/pages/user/history/index',
+    url: '/pages/user/menus/history/index',
   },
   {
     title: '商品收藏',
-    url: '/pages/user/history/index',
+    url: '/pages/user/menus/collection/index',
   },
 
   {
     title: '收货地址',
-    url: '/pages/user/address/index',
+    url: '/pages/user/menus/address/index',
   },
   {
     title: '优惠卷',
-    url: '/pages/user/coupon/index',
-    desc: '5张',
+    url: '/pages/user/menus/coupon/index',
+    desc: '5',
   },
   {
     title: '积分',
-    url: '/pages/user/integral/index',
+    url: '/pages/user/menus/integral/index',
   },
   {
     title: '帮助中心',
-    url: '/pages/user/help/index',
+    url: '/pages/user/menus/help/index',
   },
   {
     title: '客服热线',
-    url: '/pages/user/service/index',
+    url: '/pages/user/menus/service/index',
   },
 ])
 

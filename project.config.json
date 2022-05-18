@@ -15,7 +15,7 @@
     "postcss": false,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
-    "minified": false,
+    "minified": true,
     "autoAudits": false,
     "uglifyFileName": false,
     "uploadWithSourceMap": true,

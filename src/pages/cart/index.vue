@@ -87,4 +87,9 @@ const cartList = ref([
     padding: 0 10px;
   }
 }
+.nut-card__right__title {
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+}
 </style>
