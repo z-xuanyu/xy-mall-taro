@@ -69,6 +69,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "个人信息编辑",
+          "pathName": "pages/user/person-info/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

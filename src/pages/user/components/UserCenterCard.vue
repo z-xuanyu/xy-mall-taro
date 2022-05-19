@@ -4,10 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-05-14 15:09:16
+ * @LastEditTime: 2022-05-19 16:34:23
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { ref } from 'vue'
 
 const authStepType = ref({
@@ -38,8 +39,11 @@ defineProps({
   },
 })
 
+// 跳转信息编辑
 function gotoUserEditPage() {
-  console.log('跳转编辑页面')
+  Taro.navigateTo({
+    url: '/pages/user/person-info/index',
+  })
 }
 </script>
 
@@ -64,7 +68,7 @@ function gotoUserEditPage() {
           class="user-center-card__header__avatar"
           :icon="userInfo?.avatarUrl || defaultAvatarUrl"
         ></nut-avatar>
-        <view class="user-center-card__header__name">{{ userInfo.nickName || '微信用户' }}</view>
+        <view class="user-center-card__header__name">{{ userInfo?.nickName || '微信用户' }}</view>
         <!-- 需要授权用户信息，通过slot添加弹窗 -->
         <view class="user-center-card__header__transparent" v-if="isNeedGetUserInfo">
           <slot name="getUserInfo" />
@@ -81,7 +85,7 @@ function gotoUserEditPage() {
           class="user-center-card__header__avatar"
           :icon="userInfo?.avatarUrl || defaultAvatarUrl"
         ></nut-avatar>
-        <view class="user-center-card__header__name">{{ userInfo.nickName || '微信用户' }}</view>
+        <view class="user-center-card__header__name">{{ userInfo?.nickName || '微信用户' }}</view>
       </view>
     </block>
   </view>
