@@ -4,12 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 17:43:18
- * @LastEditTime: 2022-05-18 10:09:56
+ * @LastEditTime: 2022-05-19 11:08:55
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { Badge } from '@nutui/nutui-taro'
+import Taro from '@tarojs/taro'
 
 interface OrderTagInfoItem {
   orderNum: number
@@ -32,16 +33,6 @@ defineProps({
     type: String,
     default: '全部订单',
   },
-
-  isTop: {
-    type: Boolean,
-    default: true,
-  },
-
-  classPrefix: {
-    type: String,
-    default: 'wr',
-  },
 })
 
 // eslint-disable-next-line no-undef
@@ -51,14 +42,17 @@ function onClickItem(item) {
   emits('onClickItem', item)
 }
 
+// 全部订单
 function onClickTop() {
-  emits('onClickTop')
+  Taro.navigateTo({
+    url: '/pages/order/list/index',
+  })
 }
 </script>
 
 <template>
   <view class="order-group">
-    <nut-cell-group v-if="isTop">
+    <nut-cell-group>
       <nut-cell title="我的订单" desc="全部订单" @click="onClickTop" is-link />
     </nut-cell-group>
     <view class="order-group__content">
@@ -86,8 +80,13 @@ function onClickTop() {
   border-radius: 8px 8px 0 0;
   .nut-cell {
     padding: 15px 8px 10px 15px;
+    align-items: center;
     &__title {
       font-weight: bold;
+    }
+    &__link {
+      font-size: 12px;
+      margin-top: -3px;
     }
   }
   &__top {

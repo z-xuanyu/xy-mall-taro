@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-18 11:06:59
+ * @LastEditTime: 2022-05-19 11:06:29
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -111,6 +111,7 @@ const jumpPage = (item: jumpItem) => {
       <!-- celL 菜单 -->
       <nut-cell-group>
         <nut-cell
+          class="pr-2 items-center menu-cell"
           :title="item.title"
           :desc="item.desc"
           v-for="(item, index) in jumpArr"
@@ -131,7 +132,9 @@ const jumpPage = (item: jumpItem) => {
 page {
   background-color: #f5f5f5;
 }
-
+.menu-cell .nut-cell__link {
+  font-size: 12px;
+}
 .content-wrapper {
   margin-top: 170px;
   /*  #ifdef h5 */
