@@ -4,10 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-17 10:52:54
- * @LastEditTime: 2022-05-19 17:25:21
+ * @LastEditTime: 2022-05-19 17:34:09
  * @Description: 用户个人信息页面
 -->
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { defineComponent, ref } from 'vue'
 
 defineComponent({
@@ -27,6 +28,13 @@ function changeSex() {}
 function confirmSex({ selectedValue, selectedOptions }) {
   console.log(selectedValue, selectedOptions)
 }
+
+// 跳转昵称编辑
+function jumpNickNameEdit() {
+  Taro.navigateTo({
+    url: '/pages/user/name-edit/index',
+  })
+}
 </script>
 
 <template>
@@ -43,7 +51,13 @@ function confirmSex({ selectedValue, selectedOptions }) {
           </view>
         </template>
       </nut-cell>
-      <nut-cell title="昵称" class="items-center" desc="阿宇_Coder" is-link />
+      <nut-cell
+        title="昵称"
+        @click="jumpNickNameEdit"
+        class="items-center"
+        desc="阿宇_Coder"
+        is-link
+      />
       <nut-cell @click="showSex = true" title="性别" class="items-center" is-link desc="男" />
       <nut-cell title="手机号" class="items-center" is-link desc="134****9999" />
     </nut-cell-group>
