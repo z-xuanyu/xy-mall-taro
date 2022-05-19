@@ -4,18 +4,41 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-19 11:57:58
+ * @LastEditTime: 2022-05-19 12:24:22
  * @Description: 用户订单页面
 -->
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue'
 import { Tabs, TabPane, Card } from '@nutui/nutui-taro'
+import Taro from '@tarojs/taro'
 
 defineComponent({
   name: 'OrderListPage',
 })
 
 const tabActive = ref(0)
+
+// 跳转订单详细
+function jumpOrderDetail() {
+  Taro.navigateTo({
+    url: '/pages/order/detail/index',
+  })
+}
+
+// 取消订单
+function onCancelOrder() {
+  Taro.showToast({
+    title: '取消订单',
+    icon: 'none',
+  })
+}
+// 点击支付
+function onPaySubmit() {
+  Taro.showToast({
+    title: '支付',
+    icon: 'none',
+  })
+}
 </script>
 <template>
   <view class="order-page">
@@ -29,7 +52,12 @@ const tabActive = ref(0)
       </Tabs>
     </view>
     <view class="order-page__list">
-      <view class="order-page__list-item bg-white my-3 p-3" v-for="orderItem in 5" :key="orderItem">
+      <view
+        class="order-page__list-item bg-white my-3 p-3"
+        v-for="orderItem in 5"
+        :key="orderItem"
+        @click="jumpOrderDetail"
+      >
         <view class="flex justify-between">
           <text>订单号 3545456456</text>
           <text class="text-red mr-4 text-base">待付款</text>
@@ -55,8 +83,12 @@ const tabActive = ref(0)
           <nut-price :price="88" size="normal" :thousands="true" />
         </view>
         <view class="text-right mt-2">
-          <nut-button type="default" class="mx-2" size="small">取消订单</nut-button>
-          <nut-button type="primary" class="px-6" size="small">付款</nut-button>
+          <nut-button type="default" class="mx-2" @click.stop="onCancelOrder" size="small"
+            >取消订单</nut-button
+          >
+          <nut-button type="primary" class="px-6" @click.stop="onPaySubmit" size="small"
+            >付款</nut-button
+          >
         </view>
       </view>
     </view>
