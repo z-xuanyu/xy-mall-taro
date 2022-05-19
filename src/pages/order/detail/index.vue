@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:41
- * @LastEditTime: 2022-05-19 15:26:34
+ * @LastEditTime: 2022-05-19 15:49:14
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -33,7 +33,11 @@ function onCopyOrderNo() {
 }
 
 // 跳转订单发票详细
-function jumpInvoiceDetail() {}
+function jumpInvoiceDetail() {
+  Taro.navigateTo({
+    url: '/pages/order/invoice-detail/index',
+  })
+}
 
 // 跳转地址列表
 function jumpAddresList() {

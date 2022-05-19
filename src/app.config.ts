@@ -23,6 +23,7 @@ export default defineAppConfig({
         'list/index',
         'order-confirm/index',
         'receipt/index',
+        'invoice-detail/index',
         'pay-success/index',
       ],
     },
