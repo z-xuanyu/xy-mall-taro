@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:59:04
- * @LastEditTime: 2022-05-17 15:00:08
+ * @LastEditTime: 2022-05-19 17:59:51
  * @Description: 用户地址
 -->
 <script setup lang="ts">
@@ -44,7 +44,7 @@ function delClick() {
 
 function editClick() {
   Taro.navigateTo({
-    url: '/pages/user/address/edit/index',
+    url: '/pages/user/menus/address/edit/index',
   })
 }
 
@@ -52,7 +52,7 @@ function itemClick() {}
 
 function addAddress() {
   Taro.navigateTo({
-    url: '/pages/user/address/edit/index',
+    url: '/pages/user/menus/address/edit/index',
   })
 }
 
