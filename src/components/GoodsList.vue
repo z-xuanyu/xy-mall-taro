@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-05-19 10:57:15
+ * @LastEditTime: 2022-05-20 12:09:11
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -22,9 +22,7 @@ function jumpDetai() {
   <view class="goods-list">
     <view class="goods-list__item" v-for="item in 10" :key="item" @click="jumpDetai">
       <view class="goods-list__item-img">
-        <image
-          src="https://img14.360buyimg.com/ceco/s300x300_jfs/t1/126663/31/12341/83168/5f58b7fbE1e7b3333/f0c9c03054652024.jpg!q70.jpg"
-        />
+        <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
       </view>
       <view class="goods-list__item-title text-overflow-2 px-2">
         雅迪 双重减震 电动车雅迪 双重减震 电动车雅迪 双重减震 电动车
@@ -53,7 +51,7 @@ function jumpDetai() {
     overflow: hidden;
     border-radius: 5px;
     image {
-      height: 180px;
+      height: 160px;
       width: 100%;
     }
     &-title {

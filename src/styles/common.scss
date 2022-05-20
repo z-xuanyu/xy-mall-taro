@@ -95,6 +95,9 @@ $fontSizes: (
 .flex-1 {
   flex: 1;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 $flexJustify: (
   'start': flex-start,
   'end': flex-end,

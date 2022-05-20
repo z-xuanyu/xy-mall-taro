@@ -83,6 +83,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "商品全部评价",
+          "pathName": "pages/goods/comment/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

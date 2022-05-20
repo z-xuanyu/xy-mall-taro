@@ -4,19 +4,26 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 14:47:31
- * @LastEditTime: 2022-05-18 10:06:39
- * @Description: Modify here please
+ * @LastEditTime: 2022-05-20 14:02:25
+ * @Description: 商品评论卡片
 -->
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { ref } from 'vue'
 
-const rateValue = ref(5)
+const rateValue = ref<number>(5)
+
+function jumpGoodsComments(): void {
+  Taro.navigateTo({
+    url: '/pages/goods/comment/index',
+  })
+}
 </script>
 
 <template>
   <view class="comment-card">
     <nut-cell-group>
-      <nut-cell title="商品评价(47)" is-link value="98.8% 好评" />
+      <nut-cell title="商品评价(47)" is-link value="98.8% 好评" @click="jumpGoodsComments" />
     </nut-cell-group>
     <view class="comment-card__content">
       <view class="comment-card__content-top">
