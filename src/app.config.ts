@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:33
- * @LastEditTime: 2022-05-20 12:10:24
+ * @LastEditTime: 2022-05-20 15:45:58
  * @Description: 主配置文件
  */
 import { TabBarItem } from '@tarojs/taro'
@@ -33,6 +33,7 @@ export default defineAppConfig({
         'invoice-detail/index',
         'pay-success/index',
         'comment/index',
+        'apply-service/index',
       ],
     },
     {

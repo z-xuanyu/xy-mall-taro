@@ -30,6 +30,10 @@ page {
   /* autoprefixer: on */
   word-break: break-all;
 }
+
+.w-full {
+  width: 100%;
+}
 // 颜色
 $colors: (
   'primary': #00a0e9,
@@ -61,6 +65,9 @@ $colors: (
   }
 }
 // 文本大小
+.font-bold {
+  font-weight: bold;
+}
 $fontSizes: (
   xxs: 12px,
   xs: 13px,

@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-20 11:13:51
+ * @LastEditTime: 2022-05-20 15:48:56
  * @Description: 用户订单页面
 -->
 <script setup lang="ts">
@@ -62,6 +62,13 @@ function onOrderBtn(status: number): void {
       break
   }
 }
+
+// 订单售后
+function onApplyOrderAfterSales() {
+  Taro.navigateTo({
+    url: '/pages/order/apply-service/index',
+  })
+}
 </script>
 <template>
   <view class="order-page">
@@ -118,7 +125,7 @@ function onOrderBtn(status: number): void {
             type="default"
             v-if="orderItem === 3"
             class="mx-2"
-            @click.stop="onCancelOrder"
+            @click.stop="onApplyOrderAfterSales"
             size="small"
             >申请售后</nut-button
           >

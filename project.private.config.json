@@ -90,6 +90,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "选择售后部类型",
+          "pathName": "pages/order/apply-service/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
