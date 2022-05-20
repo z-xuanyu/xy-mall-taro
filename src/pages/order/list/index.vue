@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-19 12:24:22
+ * @LastEditTime: 2022-05-20 11:13:51
  * @Description: 用户订单页面
 -->
 <script setup lang="ts">
@@ -33,11 +33,34 @@ function onCancelOrder() {
   })
 }
 // 点击支付
-function onPaySubmit() {
-  Taro.showToast({
-    title: '支付',
-    icon: 'none',
-  })
+function onOrderBtn(status: number): void {
+  console.log(status, 66666)
+  switch (status) {
+    case 1:
+      Taro.showToast({
+        title: '支付',
+        icon: 'none',
+      })
+      break
+    case 2:
+      Taro.navigateTo({
+        url: '/pages/order/send/index',
+      })
+      break
+    case 3:
+      Taro.navigateTo({
+        url: '/pages/order/receive/index',
+      })
+      break
+    case 4:
+      // 跳转评价
+      Taro.navigateTo({
+        url: '/pages/order/comment/index',
+      })
+      break
+    default:
+      break
+  }
 }
 </script>
 <template>
@@ -83,11 +106,53 @@ function onPaySubmit() {
           <nut-price :price="88" size="normal" :thousands="true" />
         </view>
         <view class="text-right mt-2">
-          <nut-button type="default" class="mx-2" @click.stop="onCancelOrder" size="small"
+          <nut-button
+            type="default"
+            v-if="[1, 2].includes(orderItem)"
+            class="mx-2"
+            @click.stop="onCancelOrder"
+            size="small"
             >取消订单</nut-button
           >
-          <nut-button type="primary" class="px-6" @click.stop="onPaySubmit" size="small"
+          <nut-button
+            type="default"
+            v-if="orderItem === 3"
+            class="mx-2"
+            @click.stop="onCancelOrder"
+            size="small"
+            >申请售后</nut-button
+          >
+          <nut-button
+            type="primary"
+            v-if="[1, 5].includes(orderItem)"
+            class="px-6"
+            @click.stop="onOrderBtn(orderItem)"
+            size="small"
             >付款</nut-button
+          >
+          <nut-button
+            type="primary"
+            v-if="orderItem === 2"
+            class="px-6"
+            @click.stop="onOrderBtn(orderItem)"
+            size="small"
+            >再次购买</nut-button
+          >
+          <nut-button
+            type="primary"
+            v-if="orderItem === 3"
+            class="px-6"
+            @click.stop="onOrderBtn(orderItem)"
+            size="small"
+            >确认收货</nut-button
+          >
+          <nut-button
+            type="primary"
+            v-if="orderItem === 4"
+            class="px-6"
+            @click.stop="onOrderBtn(orderItem)"
+            size="small"
+            >评价</nut-button
           >
         </view>
       </view>

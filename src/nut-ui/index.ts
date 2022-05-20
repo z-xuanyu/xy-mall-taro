@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 18:12:36
- * @LastEditTime: 2022-05-19 16:50:07
+ * @LastEditTime: 2022-05-20 12:05:18
  * @Description: nut ui
  */
 import { App } from 'vue'
@@ -32,6 +32,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Picker,
+  Progress,
 } from '@nutui/nutui-taro'
 export function setupNutUI(app: App) {
   app
@@ -58,4 +59,5 @@ export function setupNutUI(app: App) {
     .use(CheckboxGroup)
     .use(Checkbox)
     .use(Picker)
+    .use(Progress)
 }

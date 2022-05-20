@@ -4,10 +4,16 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:57:34
- * @LastEditTime: 2022-05-13 10:57:35
+ * @LastEditTime: 2022-05-20 11:10:31
  * @Description: Modify here please
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineComponent } from 'vue'
+
+defineComponent({
+  name: 'GoodsCommentListPage',
+})
+</script>
 
 <template>
   <view>
