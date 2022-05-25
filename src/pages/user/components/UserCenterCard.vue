@@ -4,10 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-05-19 16:34:23
+ * @LastEditTime: 2022-05-25 11:09:40
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
+import { getUserCode, getUserInfo } from '@/utils/getPermission'
 import Taro from '@tarojs/taro'
 import { ref } from 'vue'
 
@@ -22,7 +23,7 @@ const defaultAvatarUrl = ref<string>(
 )
 
 // eslint-disable-next-line no-undef
-defineProps({
+const props = defineProps({
   currAuthStep: {
     type: Number,
     default: 1,
@@ -39,11 +40,25 @@ defineProps({
   },
 })
 
+const userInfo = ref(props.userInfo)
+const currAuthStep = ref(props.currAuthStep)
+
 // 跳转信息编辑
 function gotoUserEditPage() {
   Taro.navigateTo({
     url: '/pages/user/person-info/index',
   })
+}
+
+// 处理登录
+async function handleLogin() {
+  const info = await getUserInfo()
+  const code = await getUserCode()
+  console.log(info, 'info')
+  console.log(code, 'code')
+
+  userInfo.value = info as any
+  currAuthStep.value = 3
 }
 </script>
 
@@ -51,7 +66,7 @@ function gotoUserEditPage() {
   <view class="user-center-card">
     <!-- 未登录的情况 -->
     <block v-if="currAuthStep === authStepType.ONE">
-      <view class="user-center-card__header" @click="gotoUserEditPage">
+      <view class="user-center-card__header" @click="handleLogin">
         <nut-avatar
           size="normal"
           class="user-center-card__header__avatar"

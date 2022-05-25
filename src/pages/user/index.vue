@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-19 16:31:38
+ * @LastEditTime: 2022-05-25 10:22:51
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -16,7 +16,7 @@ defineComponent({
   name: 'UserPage',
 })
 
-const currAuthStep = ref<number>(3)
+const currAuthStep = ref<number>(1)
 
 const orderTagInfos = ref([
   {
