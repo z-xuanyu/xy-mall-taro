@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-17 10:52:54
- * @LastEditTime: 2022-05-19 17:34:09
+ * @LastEditTime: 2022-05-26 17:42:51
  * @Description: 用户个人信息页面
 -->
 <script setup lang="ts">
@@ -64,6 +64,8 @@ function jumpNickNameEdit() {
 
     <!-- 性别修改 -->
     <nut-picker
+      :style="{ height: 'auto' }"
+      :overlay-style="{ background: 'rgba(0, 0, 0, 0.5)' }"
       v-model:visible="showSex"
       v-model:value="defualtSex"
       :columns="sexColumns"

@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-05-18 18:08:02
+ * @LastEditTime: 2022-05-26 17:32:32
  * @Description: 确认订单
 -->
 <script setup lang="ts">
@@ -120,8 +120,8 @@ function onSubmitOrder(): void {
   }
   &__item {
     image {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 5px;
     }
   }

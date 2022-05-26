@@ -4,54 +4,35 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-05-18 12:11:28
+ * @LastEditTime: 2022-05-26 17:31:27
  * @Description: 购物车
 -->
 <script setup lang="ts">
 import { Card, Navbar } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
-import { defineComponent, ref, computed } from 'vue'
-import CartBar from './components/CartBar.vue'
+import { defineComponent, computed, ref } from 'vue'
+import { useCart } from '@/hooks/useCart'
 defineComponent({
   name: 'cartPage',
 })
 
+const selectGoodsGroupRef = ref<HTMLElement | null>(null)
+
 // 是否为web环境
 const isWeb = computed(() => Taro.getEnv() === Taro.ENV_TYPE.WEB)
-const cartList = ref([
-  {
-    imgUrl:
-      '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-    title: '活蟹】湖塘煙雨 阳澄湖大闸蟹公4.5两 母3.5两 4对8只 鲜活生鲜螃蟹现货水产礼盒海鲜水',
-    price: '388',
-    vipPrice: '378',
-    shopDesc: '自营',
-    delivery: '厂商配送',
-    shopName: '阳澄湖大闸蟹自营店>',
-  },
-  {
-    imgUrl:
-      '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-    title: '活蟹】湖塘煙雨 阳澄湖大闸蟹公4.5两 母3.5两 4对8只 鲜活生鲜螃蟹现货水产礼盒海鲜水',
-    price: '388',
-    vipPrice: '378',
-    shopDesc: '自营',
-    delivery: '厂商配送',
-    shopName: '阳澄湖大闸蟹自营店>',
-  },
-  {
-    imgUrl:
-      '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-    title: '活蟹】湖塘煙雨 阳澄湖大闸蟹公4.5两 母3.5两 4对8只 鲜活生鲜螃蟹现货水产礼盒海鲜水',
-    price: '388',
-    vipPrice: '378',
-    shopDesc: '自营',
-    delivery: '厂商配送',
-    shopName: '阳澄湖大闸蟹自营店>',
-  },
-])
+const { cartList, selectGoodsGroup, totalPrice, isSelectAll } = useCart()
 
-const checkboxgroup1 = ref([])
+// 跳转到结算页面
+function handleToSettle() {
+  Taro.navigateTo({
+    url: '/pages/order/order-confirm/index',
+  })
+}
+
+// 全选改变
+function changeAllSelect(value: boolean) {
+  return (selectGoodsGroupRef.value as any).toggleAll(value)
+}
 </script>
 
 <template>
@@ -67,13 +48,13 @@ const checkboxgroup1 = ref([])
 
     <!-- 购物车列表 -->
     <view class="cart-list">
-      <nut-checkboxgroup v-model="checkboxgroup1">
+      <nut-checkboxgroup v-model="selectGoodsGroup" ref="selectGoodsGroupRef">
         <view
-          class="cart-list__item bg-white flex items-center my-3 py-2"
+          class="cart-list__item bg-white flex rounded-xxs items-center my-3 py-2"
           v-for="(item, index) in cartList"
           :key="index"
         >
-          <nut-checkbox label="1"></nut-checkbox>
+          <nut-checkbox :label="item.goods_id"></nut-checkbox>
           <Card
             :img-url="item.imgUrl"
             :title="item.title"
@@ -83,11 +64,32 @@ const checkboxgroup1 = ref([])
             :delivery="item.delivery"
             :shopName="item.shopName"
           >
+            <template #footer>
+              <nut-inputnumber v-model="item.num" />
+            </template>
           </Card>
         </view>
       </nut-checkboxgroup>
     </view>
-    <CartBar></CartBar>
+    <!-- 底部cardbar -->
+    <view class="cart-bar bg-white flex justify-between items-center px-2 py-1">
+      <view class="flex items-center">
+        <nut-checkbox v-model="isSelectAll" @change="changeAllSelect" label="复选框"
+          >全选</nut-checkbox
+        >
+        <view class="ml-2">
+          <view>
+            <text>总计</text>
+            <nut-price :price="totalPrice" size="normal" :thousands="true" />
+            <text class="text-xs text-grey">(不包含运费)</text>
+          </view>
+          <view class="text-xs text-grey mt-1"> 已优惠￥100 </view>
+        </view>
+      </view>
+      <nut-button type="primary" @click="handleToSettle"
+        >去结算({{ selectGoodsGroup.length }})</nut-button
+      >
+    </view>
   </view>
 </template>
 
@@ -95,6 +97,24 @@ const checkboxgroup1 = ref([])
 .cart-page {
   .cart-list {
     padding: 0 10px;
+  }
+  .nut-checkbox {
+    padding: 0 8px;
+    &__label {
+      margin: 0;
+    }
+  }
+  .cart-bar {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    .nut-checkbox__label {
+      margin-left: 5px;
+    }
   }
 }
 .nut-card__right__title {
