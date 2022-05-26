@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:18:52
- * @LastEditTime: 2022-05-12 14:58:48
+ * @LastEditTime: 2022-05-26 12:03:17
  * @Description: Modify here please
 -->
 <template>
@@ -24,6 +24,11 @@
   </cover-view>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'CustomTabBar',
+}
+</script>
 <script setup>
 import Taro from '@tarojs/taro'
 import { ref } from 'vue'

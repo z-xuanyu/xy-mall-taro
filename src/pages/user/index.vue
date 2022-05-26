@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-25 10:22:51
+ * @LastEditTime: 2022-05-26 12:16:13
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -15,8 +15,6 @@ import Taro from '@tarojs/taro'
 defineComponent({
   name: 'UserPage',
 })
-
-const currAuthStep = ref<number>(1)
 
 const orderTagInfos = ref([
   {
@@ -103,7 +101,7 @@ const jumpPage = (item: jumpItem) => {
 
 <template>
   <view class="user-page">
-    <UserCenterCard :currAuthStep="currAuthStep" />
+    <UserCenterCard />
     <view class="content-wrapper">
       <view class="order-group-wrapper">
         <OrderGroup :orderTagInfos="orderTagInfos" />

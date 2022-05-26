@@ -4,44 +4,22 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-05-25 11:09:40
+ * @LastEditTime: 2022-05-26 12:19:44
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
-import { getUserCode, getUserInfo } from '@/utils/getPermission'
 import Taro from '@tarojs/taro'
-import { ref } from 'vue'
+import { ref, computed, unref } from 'vue'
+import { useUserStore } from '@/stores/modules/user'
 
-const authStepType = ref({
-  ONE: 1,
-  TWO: 2,
-  THREE: 3,
-})
+const useUser = useUserStore()
 
 const defaultAvatarUrl = ref<string>(
   'https://cdn-we-retail.ym.tencent.com/miniapp/usercenter/icon-user-center-avatar@2x.png'
 )
 
-// eslint-disable-next-line no-undef
-const props = defineProps({
-  currAuthStep: {
-    type: Number,
-    default: 1,
-  },
-
-  userInfo: {
-    type: Object,
-    default: () => {},
-  },
-
-  isNeedGetUserInfo: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-const userInfo = ref(props.userInfo)
-const currAuthStep = ref(props.currAuthStep)
+const userInfo = computed(() => useUser.getUserInfo)
+const isLogin = computed(() => useUser.isLogin)
 
 // 跳转信息编辑
 function gotoUserEditPage() {
@@ -52,20 +30,16 @@ function gotoUserEditPage() {
 
 // 处理登录
 async function handleLogin() {
-  const info = await getUserInfo()
-  const code = await getUserCode()
-  console.log(info, 'info')
-  console.log(code, 'code')
-
-  userInfo.value = info as any
-  currAuthStep.value = 3
+  if (!unref(isLogin)) {
+    await useUser.handleMiniLogin()
+  }
 }
 </script>
 
 <template>
   <view class="user-center-card">
     <!-- 未登录的情况 -->
-    <block v-if="currAuthStep === authStepType.ONE">
+    <block v-if="!isLogin">
       <view class="user-center-card__header" @click="handleLogin">
         <nut-avatar
           size="normal"
@@ -75,25 +49,8 @@ async function handleLogin() {
         <view class="user-center-card__header__name">{{ '请登录' }}</view>
       </view>
     </block>
-    <!-- 已登录但未授权用户信息情况 -->
-    <block v-if="currAuthStep === authStepType.TWO">
-      <view class="user-center-card__header">
-        <nut-avatar
-          size="normal"
-          class="user-center-card__header__avatar"
-          :icon="userInfo?.avatarUrl || defaultAvatarUrl"
-        ></nut-avatar>
-        <view class="user-center-card__header__name">{{ userInfo?.nickName || '微信用户' }}</view>
-        <!-- 需要授权用户信息，通过slot添加弹窗 -->
-        <view class="user-center-card__header__transparent" v-if="isNeedGetUserInfo">
-          <slot name="getUserInfo" />
-        </view>
-        <!-- 不需要授权用户信息，仍然触发gotoUserEditPage事件 -->
-        <view class="user-center-card__header__transparent" @click="gotoUserEditPage" v-else></view>
-      </view>
-    </block>
-    <!-- 已登录且已经授权用户信息的情况 -->
-    <block v-if="currAuthStep === authStepType.THREE">
+    <!-- 已登录 -->
+    <block v-else>
       <view class="user-center-card__header" @click="gotoUserEditPage">
         <nut-avatar
           size="normal"
