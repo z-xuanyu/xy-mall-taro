@@ -104,6 +104,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "浏览历史",
+          "pathName": "pages/user/menus/history/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

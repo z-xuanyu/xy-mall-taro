@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-20 15:48:56
+ * @LastEditTime: 2022-05-27 11:46:22
  * @Description: 用户订单页面
 -->
 <script setup lang="ts">
@@ -17,6 +17,22 @@ defineComponent({
 })
 
 const tabActive = ref(0)
+
+const scrollTop = ref(0)
+const refresherTriggered = ref(false)
+
+function onRefresherRefresh() {
+  refresherTriggered.value = true
+  setTimeout(() => {
+    refresherTriggered.value = false
+    scrollTop.value = 0
+    Taro.showToast({
+      title: '刷新成功',
+      icon: 'success',
+      duration: 2000,
+    })
+  }, 1000)
+}
 
 // 跳转订单详细
 function jumpOrderDetail() {
@@ -81,89 +97,99 @@ function onApplyOrderAfterSales() {
         <TabPane title="已完成"> </TabPane>
       </Tabs>
     </view>
-    <view class="order-page__list">
-      <view
-        class="order-page__list-item bg-white my-3 p-3"
-        v-for="orderItem in 5"
-        :key="orderItem"
-        @click="jumpOrderDetail"
-      >
-        <view class="flex justify-between">
-          <text>订单号 3545456456</text>
-          <text class="text-red mr-4 text-base">待付款</text>
-        </view>
-        <view class="rder-page__list-item__goods pt-2">
-          <Card
-            v-for="item in 3"
-            :key="item"
-            class="mb-3"
-            img-url="https://cdn-we-retail.ym.tencent.com/tsr/goods/dz-3b.png"
-            title="腾讯极光盒子4智能网络电视机顶盒6K千兆网络机顶盒4K高分辨率"
-            price="88"
-            vipPrice="188"
-            shopDesc="自运营"
-            delivery="包邮"
-            shopName="颜色：紫色 x 1"
-          >
-          </Card>
-        </view>
-        <view class="text-right px-3">
-          <text class="text-grey text-xs mr-2">总价￥100.1，运费￥0.00</text>
-          <text class="text-gray text-sm">实际</text>
-          <nut-price :price="88" size="normal" :thousands="true" />
-        </view>
-        <view class="text-right mt-2">
-          <nut-button
-            type="default"
-            v-if="[1, 2].includes(orderItem)"
-            class="mx-2"
-            @click.stop="onCancelOrder"
-            size="small"
-            >取消订单</nut-button
-          >
-          <nut-button
-            type="default"
-            v-if="orderItem === 3"
-            class="mx-2"
-            @click.stop="onApplyOrderAfterSales"
-            size="small"
-            >申请售后</nut-button
-          >
-          <nut-button
-            type="primary"
-            v-if="[1, 5].includes(orderItem)"
-            class="px-6"
-            @click.stop="onOrderBtn(orderItem)"
-            size="small"
-            >付款</nut-button
-          >
-          <nut-button
-            type="primary"
-            v-if="orderItem === 2"
-            class="px-6"
-            @click.stop="onOrderBtn(orderItem)"
-            size="small"
-            >再次购买</nut-button
-          >
-          <nut-button
-            type="primary"
-            v-if="orderItem === 3"
-            class="px-6"
-            @click.stop="onOrderBtn(orderItem)"
-            size="small"
-            >确认收货</nut-button
-          >
-          <nut-button
-            type="primary"
-            v-if="orderItem === 4"
-            class="px-6"
-            @click.stop="onOrderBtn(orderItem)"
-            size="small"
-            >评价</nut-button
-          >
+    <scroll-view
+      :scroll-y="true"
+      style="height: 100vh;"
+      :scroll-top="scrollTop"
+      :refresherEnabled="true"
+      :refresherTriggered="refresherTriggered"
+      @refresherrefresh="onRefresherRefresh"
+      :refresherThreshold="60"
+    >
+      <view class="order-page__list">
+        <view
+          class="order-page__list-item bg-white my-3 p-3"
+          v-for="orderItem in 5"
+          :key="orderItem"
+          @click="jumpOrderDetail"
+        >
+          <view class="flex justify-between">
+            <text>订单号 3545456456</text>
+            <text class="text-red mr-4 text-base">待付款</text>
+          </view>
+          <view class="rder-page__list-item__goods pt-2">
+            <Card
+              v-for="item in 3"
+              :key="item"
+              class="mb-3"
+              img-url="https://cdn-we-retail.ym.tencent.com/tsr/goods/dz-3b.png"
+              title="腾讯极光盒子4智能网络电视机顶盒6K千兆网络机顶盒4K高分辨率"
+              price="88"
+              vipPrice="188"
+              shopDesc="自运营"
+              delivery="包邮"
+              shopName="颜色：紫色 x 1"
+            >
+            </Card>
+          </view>
+          <view class="text-right px-3">
+            <text class="text-grey text-xs mr-2">总价￥100.1，运费￥0.00</text>
+            <text class="text-gray text-sm">实际</text>
+            <nut-price :price="88" size="normal" :thousands="true" />
+          </view>
+          <view class="text-right mt-2">
+            <nut-button
+              type="default"
+              v-if="[1, 2].includes(orderItem)"
+              class="mx-2"
+              @click.stop="onCancelOrder"
+              size="small"
+              >取消订单</nut-button
+            >
+            <nut-button
+              type="default"
+              v-if="orderItem === 3"
+              class="mx-2"
+              @click.stop="onApplyOrderAfterSales"
+              size="small"
+              >申请售后</nut-button
+            >
+            <nut-button
+              type="primary"
+              v-if="[1, 5].includes(orderItem)"
+              class="px-6"
+              @click.stop="onOrderBtn(orderItem)"
+              size="small"
+              >付款</nut-button
+            >
+            <nut-button
+              type="primary"
+              v-if="orderItem === 2"
+              class="px-6"
+              @click.stop="onOrderBtn(orderItem)"
+              size="small"
+              >再次购买</nut-button
+            >
+            <nut-button
+              type="primary"
+              v-if="orderItem === 3"
+              class="px-6"
+              @click.stop="onOrderBtn(orderItem)"
+              size="small"
+              >确认收货</nut-button
+            >
+            <nut-button
+              type="primary"
+              v-if="orderItem === 4"
+              class="px-6"
+              @click.stop="onOrderBtn(orderItem)"
+              size="small"
+              >评价</nut-button
+            >
+          </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </template>
 
