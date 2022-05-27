@@ -4,29 +4,25 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:34
- * @LastEditTime: 2022-05-13 09:58:06
- * @Description: Modify here please
+ * @LastEditTime: 2022-05-27 10:17:29
+ * @Description: 请求封装
  */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'taro-axios'
 import Taro from '@tarojs/taro'
-
-// import { useRouter } from 'vue-router'
-// 根据自身规范修改![](https://tva1.sinaimg.cn/large/008i3skNgy1gxfn11mr8yj314w0u0tdg.jpg)
+import { getCache } from '@/utils/storageCache'
 
 const instance = axios.create({
   baseURL: 'https://xy-mall-web-api.zhouxuanyu.com/',
-  // 超时时间 1 分钟
-  timeout: 30 * 1000,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
   },
 })
 
 instance.interceptors.request.use((config: AxiosRequestConfig) => {
-  const token = '111'
+  const token = getCache('token')
   config.headers = {
     Authorization: `Bearer ${token}`,
-    token,
     ...config.headers,
   }
   return config
@@ -41,7 +37,6 @@ const showToast = (title: string) => {
 }
 const showMessage = (title: unknown) => {
   const message = JSON.stringify(title).replace(/"/g, '')
-  // TODO Request failed with status code 500 优化展示逻辑
   if (message.indexOf('Network') > -1) {
     showToast('请求失败，请联系客服')
   } else if (message.indexOf('timeout') > -1) {

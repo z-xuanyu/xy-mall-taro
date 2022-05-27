@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-05-20 12:09:11
+ * @LastEditTime: 2022-05-27 11:07:50
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -19,7 +19,7 @@ function jumpDetai() {
 </script>
 
 <template>
-  <view class="goods-list">
+  <view class="goods-list p-2">
     <view class="goods-list__item" v-for="item in 10" :key="item" @click="jumpDetai">
       <view class="goods-list__item-img">
         <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
@@ -30,9 +30,9 @@ function jumpDetai() {
       <view class="goods-list__item-tag px-2">
         <Tag type="danger" plain round>限时抢购</Tag>
       </view>
-      <view class="goods-list__item-price p-2">
+      <view class="goods-list__item-price p-2 flex justify-between items-center">
         <nut-price :price="288" :thousands="true" :decimal-digits="0" />
-        <nut-icon name="cart" color="red" :size="22"></nut-icon>
+        <nut-icon name="cart" color="red" :size="18"></nut-icon>
       </view>
     </view>
   </view>
@@ -40,15 +40,13 @@ function jumpDetai() {
 
 <style lang="scss">
 .goods-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 5px;
+  column-count: 2;
+  column-gap: 10px;
   &__item {
-    width: 47%;
+    break-inside: avoid;
     background-color: #fff;
-    margin: 5px;
-    overflow: hidden;
+    box-sizing: border-box;
+    margin-bottom: 10px;
     border-radius: 5px;
     image {
       height: 160px;
@@ -60,10 +58,6 @@ function jumpDetai() {
     }
     &-tag {
       padding: 5px;
-    }
-    &-price {
-      display: flex;
-      justify-content: space-between;
     }
   }
 }

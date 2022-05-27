@@ -4,12 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:07:03
- * @LastEditTime: 2022-05-18 16:19:23
+ * @LastEditTime: 2022-05-27 10:49:11
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue'
 import { SearchBar } from '@nutui/nutui-taro'
+import Taro from '@tarojs/taro'
 
 defineComponent({
   name: 'GoodsSearchPage',
@@ -46,7 +47,11 @@ const popularWords = ref([
 ])
 function handleClearHistory() {}
 
-function handleHistoryTap() {}
+function handleHistoryTap() {
+  Taro.navigateTo({
+    url: '/pages/goods/list/index',
+  })
+}
 </script>
 
 <template>

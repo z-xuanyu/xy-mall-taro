@@ -97,6 +97,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "所有商品列表",
+          "pathName": "pages/goods/list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
