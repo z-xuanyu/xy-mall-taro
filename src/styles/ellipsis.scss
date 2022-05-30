@@ -1,0 +1,20 @@
+.text-overflow-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /*! autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  word-break: break-all;
+}
+.text-overflow-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /*! autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  word-break: break-all;
+}

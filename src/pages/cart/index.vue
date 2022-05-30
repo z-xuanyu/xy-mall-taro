@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-05-26 17:31:27
+ * @LastEditTime: 2022-05-30 16:36:04
  * @Description: 购物车
 -->
 <script setup lang="ts">
@@ -118,7 +118,7 @@ function changeAllSelect(value: boolean) {
   }
 }
 .nut-card__right__title {
-  /*! autoprefixer: off */
+  /*! autoprefixer: ignore next */
   -webkit-box-orient: vertical;
   /* autoprefixer: on */
 }
