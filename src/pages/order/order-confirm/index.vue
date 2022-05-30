@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-05-26 17:32:32
+ * @LastEditTime: 2022-05-30 17:58:26
  * @Description: 确认订单
 -->
 <script setup lang="ts">
@@ -38,12 +38,12 @@ function onSubmitOrder(): void {
     <view class="goods-list px-3">
       <nut-cell icon="shop" title="XYMALL旗舰店"></nut-cell>
       <view class="goods-list__item flex mb-3" v-for="item in 3" :key="item">
-        <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png" />
+        <image class="goods-img" src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png" />
         <view class="flex-1 ml-2">
-          <text class="goods-list__item-title text-overflow-2">
+          <text class="goods-list__item-title text-base text-overflow-2">
             白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
           </text>
-          <view class="goods-list__item-price my-2">
+          <view class="goods-list__item-price my-1 text-base">
             <text>
               <text>¥</text>
               <text class="text-lg">999</text>
@@ -108,28 +108,31 @@ function onSubmitOrder(): void {
 </template>
 
 <style lang="scss">
-.goods-list {
-  .nut-cell {
-    margin-bottom: 0;
-    border-radius: 0;
-    box-shadow: none;
-    padding-left: 0;
-  }
-  .nut-cell__title {
-    margin-left: 10px;
-  }
-  &__item {
-    image {
-      width: 100px;
-      height: 100px;
-      border-radius: 5px;
+.order-confirm-page {
+  padding-bottom: 50px;
+  .goods-list {
+    .nut-cell {
+      margin-bottom: 0;
+      border-radius: 0;
+      box-shadow: none;
+      padding-left: 0;
+    }
+    .nut-cell__title {
+      margin-left: 10px;
+    }
+    &__item {
+      .goods-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+      }
     }
   }
-}
-.submit-btn {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  .submit-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 </style>

@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:41
- * @LastEditTime: 2022-05-19 15:49:14
+ * @LastEditTime: 2022-05-30 18:19:31
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -75,7 +75,7 @@ function jumpAddresList() {
             </view>
           </view>
         </view>
-        <view class="text-red" @click="jumpAddresList">修改</view>
+        <view class="text-red text-base" @click="jumpAddresList">修改</view>
       </view>
     </view>
     <!-- goods -->
@@ -86,12 +86,15 @@ function jumpAddresList() {
       </view>
       <view class="goods-list py-3">
         <view class="flex mb-2 goods-list__item" v-for="item in 3" :key="item">
-          <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png" />
+          <image
+            class="goods-img"
+            src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png"
+          />
           <view class="flex-1 ml-2">
-            <text class="text-overflow-2">
+            <text class="text-overflow-2 text-base">
               白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
             </text>
-            <view class="my-1">
+            <view class="text-xs goods-price">
               <text>
                 <text>¥</text>
                 <text class="text-lg">999</text>
@@ -187,10 +190,16 @@ function jumpAddresList() {
   }
   .goods-list {
     &__item {
-      image {
+      .goods-img {
         width: 90px;
         height: 90px;
         border-radius: 3px;
+      }
+      .goods-price {
+        margin: 5px 0;
+        /*  #ifdef h5 */
+        margin: 0;
+        /*  #endif  */
       }
     }
   }

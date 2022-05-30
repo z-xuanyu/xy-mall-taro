@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-27 11:46:22
+ * @LastEditTime: 2022-05-30 18:32:31
  * @Description: 用户订单页面
 -->
 <script setup lang="ts">
@@ -113,8 +113,8 @@ function onApplyOrderAfterSales() {
           :key="orderItem"
           @click="jumpOrderDetail"
         >
-          <view class="flex justify-between">
-            <text>订单号 3545456456</text>
+          <view class="flex items-center justify-between">
+            <text class="text-base">订单号 3545456456</text>
             <text class="text-red mr-4 text-base">待付款</text>
           </view>
           <view class="rder-page__list-item__goods pt-2">

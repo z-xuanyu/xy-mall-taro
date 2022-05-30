@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-05-27 11:15:33
+ * @LastEditTime: 2022-05-30 17:27:18
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -118,7 +118,7 @@ onMounted(() => {
     <view class="flex soldout justify-center items-center" v-if="soldout || !isStock">
       {{ soldout ? '商品已下架' : '商品已售馨' }}
     </view>
-    <view class="footer-cont flex justify-between wr-class">
+    <view class="footer-cont flex justify-between items-center wr-class">
       <view class="flex justify-between bottom-operate-left" v-if="jumpArray.length">
         <view
           v-for="(item, index) in jumpArray"
@@ -253,6 +253,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
 }
 
 .bar-separately {

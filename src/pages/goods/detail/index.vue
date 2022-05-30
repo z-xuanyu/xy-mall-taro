@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-05-20 12:11:43
+ * @LastEditTime: 2022-05-30 18:30:33
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -59,10 +59,10 @@ const swiperList = ref([
       <view class="goods-detail__info-price">
         <view>
           <nut-price :price="298" :thousands="true" />
-          <text class="goods-detail__info-price__up">
+          <text class="goods-detail__info-price__up text-xs">
             起
           </text>
-          <text class="goods-detail__info-price__del">￥498 </text>
+          <text class="goods-detail__info-price__del text-xs">￥498 </text>
         </view>
 
         <view class="goods-detail__info-price__sold">
@@ -86,7 +86,7 @@ const swiperList = ref([
       </view>
 
       <view class="goods-detail__info-title">
-        <text>
+        <text class="text-lg">
           华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro
         </text>
         <nut-icon name="share"></nut-icon>
@@ -129,7 +129,7 @@ const swiperList = ref([
     }
   }
   &__info {
-    padding: 20px 10px;
+    padding: 15px 10px;
     background-color: #fff;
     &-price {
       display: flex;
@@ -148,7 +148,6 @@ const swiperList = ref([
       }
     }
     &-tags {
-      margin-top: 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;

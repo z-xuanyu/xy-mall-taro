@@ -4,22 +4,19 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-05-30 16:36:04
+ * @LastEditTime: 2022-05-30 18:29:41
  * @Description: 购物车
 -->
 <script setup lang="ts">
-import { Card, Navbar } from '@nutui/nutui-taro'
+import { Card } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useCart } from '@/hooks/useCart'
 defineComponent({
   name: 'cartPage',
 })
 
 const selectGoodsGroupRef = ref<HTMLElement | null>(null)
-
-// 是否为web环境
-const isWeb = computed(() => Taro.getEnv() === Taro.ENV_TYPE.WEB)
 const { cartList, selectGoodsGroup, totalPrice, isSelectAll } = useCart()
 
 // 跳转到结算页面
@@ -37,15 +34,6 @@ function changeAllSelect(value: boolean) {
 
 <template>
   <view class="cart-page">
-    <!-- 顶部导航 -->
-    <block v-if="isWeb">
-      <Navbar :left-show="false" title="购物车" titIcon="cart2" desc="编辑">
-        <template #right>
-          <nut-icon class="right" name="more-x"></nut-icon>
-        </template>
-      </Navbar>
-    </block>
-
     <!-- 购物车列表 -->
     <view class="cart-list">
       <nut-checkboxgroup v-model="selectGoodsGroup" ref="selectGoodsGroupRef">
@@ -79,7 +67,7 @@ function changeAllSelect(value: boolean) {
         >
         <view class="ml-2">
           <view>
-            <text>总计</text>
+            <text class="text-base">总计</text>
             <nut-price :price="totalPrice" size="normal" :thousands="true" />
             <text class="text-xs text-grey">(不包含运费)</text>
           </view>
@@ -108,6 +96,9 @@ function changeAllSelect(value: boolean) {
     position: fixed;
     height: 50px;
     bottom: 0;
+    /*  #ifdef h5 */
+    bottom: 48px;
+    /*  #endif  */
     left: 0;
     right: 0;
     border-top: 1px solid #e5e5e5;

@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-05-26 12:16:13
+ * @LastEditTime: 2022-05-30 18:30:55
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -127,9 +127,6 @@ const jumpPage = (item: jumpItem) => {
 </template>
 
 <style lang="scss">
-page {
-  background-color: #f5f5f5;
-}
 .menu-cell .nut-cell__link {
   font-size: 12px;
 }

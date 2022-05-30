@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:00:19
- * @LastEditTime: 2022-05-27 12:17:33
+ * @LastEditTime: 2022-05-30 18:32:08
  * @Description: 用户收藏页面
 -->
 <script lang="ts">
@@ -52,9 +52,11 @@ function jumpDetai() {
           :key="item"
           @click="jumpDetai"
         >
-          <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
+          <view class="goods-img">
+            <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
+          </view>
           <view class="flex-1 w-full ml-2">
-            <view class="text-overflow-2">
+            <view class="text-overflow-2 text-base">
               雅迪 双重减震 电动车雅迪 双重减震 电动车雅迪 双重减震 电动车动车雅迪 双重减震
               电动车雅迪 双重减震 电
             </view>
@@ -76,10 +78,14 @@ function jumpDetai() {
 .collection-page {
   .goods-list {
     &__item {
-      image {
+      .goods-img {
         width: 90px;
         height: 90px;
-        border-radius: 3px;
+        image {
+          width: 100%;
+          height: 100%;
+          border-radius: 3px;
+        }
       }
     }
   }

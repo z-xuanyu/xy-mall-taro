@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-19 15:40:03
- * @LastEditTime: 2022-05-19 16:17:32
+ * @LastEditTime: 2022-05-30 18:14:33
  * @Description: 订单发票详情
 -->
 <script setup lang="ts">
@@ -81,6 +81,12 @@ const invoice = ref<InvoiceItemType>({
 </template>
 
 <style lang="scss">
+.invoice-detail {
+  /*  #ifdef h5 */
+  background-color: #f5f5f5;
+  min-height: 98%;
+  /*  #endif  */
+}
 .invoice-detail .invoice-detail-box {
   background-color: #fff;
   padding: 12px 16px;
