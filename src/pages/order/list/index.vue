@@ -4,17 +4,19 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-05-30 18:32:31
+ * @LastEditTime: 2022-06-06 11:23:44
  * @Description: 用户订单页面
 -->
+<script lang="ts">
+export default {
+  name: 'UserOrderPage',
+}
+</script>
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
-import { Tabs, TabPane, Card } from '@nutui/nutui-taro'
+import { ref } from 'vue'
+import { Tabs, TabPane, Card, Navbar } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
-
-defineComponent({
-  name: 'OrderListPage',
-})
+import { isWeb } from '@/utils/env'
 
 const tabActive = ref(0)
 
@@ -85,9 +87,14 @@ function onApplyOrderAfterSales() {
     url: '/pages/order/apply-service/index',
   })
 }
+
+function onBack() {
+  Taro.navigateBack()
+}
 </script>
 <template>
   <view class="order-page">
+    <Navbar v-if="isWeb" @on-click-back="onBack" title="我的订单"></Navbar>
     <view class="order-page__tabs">
       <Tabs v-model="tabActive">
         <TabPane title="全部"> </TabPane>
@@ -195,6 +202,11 @@ function onApplyOrderAfterSales() {
 
 <style lang="scss">
 .order-page {
+  .nut-navbar {
+    margin-bottom: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #f0f0f0;
+  }
   &__tabs {
     position: sticky;
     top: 0;
