@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-05-30 17:27:18
+ * @LastEditTime: 2022-06-06 10:19:35
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -174,6 +174,7 @@ onMounted(() => {
 .nut-sku {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
+  z-index: 20000;
 }
 .footer-cont {
   background-color: #fff;

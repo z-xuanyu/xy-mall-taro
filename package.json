@@ -45,9 +45,13 @@
     "@tarojs/components": "3.4.9",
     "@tarojs/plugin-framework-vue3": "^3.4.9",
     "@tarojs/plugin-html": "3.4.9",
+    "@tarojs/rn-runner": "^3.4.10",
     "@tarojs/runtime": "3.4.9",
     "@tarojs/taro": "3.4.9",
+    "@tarojs/taro-rn": "^3.4.10",
     "pinia": "^2.0.14",
+    "react": "^17.0.2",
+    "react-native": "^0.67.3",
     "taro-axios": "^1.1.1",
     "taro-plugin-pinia": "^1.0.0",
     "vue": "^3.2.33"

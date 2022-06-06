@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 18:03:44
- * @LastEditTime: 2022-05-18 18:23:54
+ * @LastEditTime: 2022-06-06 10:28:16
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -51,4 +51,14 @@ function jumpHome() {
 page {
   background-color: #fff;
 }
+/*  #ifdef h5 */
+.pay-success-page {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+/* #endif */
 </style>

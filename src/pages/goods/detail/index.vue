@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-05-30 18:30:33
+ * @LastEditTime: 2022-06-06 10:23:18
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -127,6 +127,9 @@ const swiperList = ref([
       width: 100%;
       height: 100%;
     }
+  }
+  .swiper-container {
+    z-index: 0;
   }
   &__info {
     padding: 15px 10px;

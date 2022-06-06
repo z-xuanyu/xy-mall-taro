@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-20 15:40:07
- * @LastEditTime: 2022-05-24 16:18:41
+ * @LastEditTime: 2022-05-31 09:56:45
  * @Description: 订单售后类型选择
 -->
 <script lang="ts">
@@ -85,20 +85,20 @@ export default defineComponent({
   <view class="order-apply-service">
     <!-- 商品卡片 -->
     <view class="goods-card flex p-4 bg-white">
-      <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
+      <image class="goods-img" src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
       <view class="flex-1 ml-2">
-        <view class="text-overflow-2">
+        <view class="text-overflow-2 text-xs">
           白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
         </view>
-        <view class="text-xs my-1 text-grey">
-          <text>颜色：橙色，2XL</text>
+        <view class="text-grey text-xs">
+          颜色：橙色，2XL
         </view>
-        <view class="flex justify-between">
-          <view>
-            <text class="text-xs">￥</text>
-            <text>269.00</text>
+        <view class="flex justify-between items-center">
+          <view class="flex items-end">
+            <view class="text-xs">￥</view>
+            <view class="text-base">269.00</view>
           </view>
-          <text class="text-xs text-grey">x1</text>
+          <view class="text-xs text-grey">x1</view>
         </view>
       </view>
     </view>
@@ -187,7 +187,7 @@ export default defineComponent({
 .order-apply-service {
   padding-bottom: 50px;
   .goods-card {
-    image {
+    .goods-img {
       width: 80px;
       height: 80px;
       border-radius: 3px;

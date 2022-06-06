@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-05-27 12:20:51
+ * @LastEditTime: 2022-06-06 10:01:50
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -27,10 +27,10 @@ function jumpDetai() {
       <view class="goods-list-column__item-title text-overflow-2 px-2">
         雅迪 双重减震 电动车雅迪 双重减震 电动车雅迪 双重减震 电动车
       </view>
-      <view class="px-2 mt-1">
+      <view class="px-2">
         <Tag type="danger" plain round>限时抢购</Tag>
       </view>
-      <view class="p-2 flex justify-between items-center">
+      <view class="px-2 flex justify-between items-center">
         <nut-price :price="288" :thousands="true" :decimal-digits="0" />
         <nut-icon name="cart" color="red" :size="18"></nut-icon>
       </view>

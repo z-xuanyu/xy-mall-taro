@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:07:03
- * @LastEditTime: 2022-05-27 10:49:11
+ * @LastEditTime: 2022-06-06 10:26:50
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -99,10 +99,15 @@ function handleHistoryTap() {
 </template>
 
 <style lang="scss">
-page {
-  background-color: #ffffff;
+/*  #ifdef h5 */
+.search-page {
+  background: #fff;
+  min-height: 100vh;
 }
-
+/* #endif */
+page {
+  background: #fff;
+}
 .search-page .search-header {
   display: flex;
   flex-flow: row nowrap;
@@ -111,17 +116,17 @@ page {
 }
 
 .search-page .search-title {
-  font-size: 30rpx;
+  font-size: 15px;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
-  line-height: 42rpx;
+  line-height: 21px;
 }
 
 .search-page .search-clear {
-  font-size: 24rpx;
+  font-size: 12px;
   font-family: PingFang SC;
-  line-height: 32rpx;
+  line-height: 16px;
   color: #999999;
   font-weight: normal;
 }
@@ -132,25 +137,25 @@ page {
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-top: 24rpx;
+  margin-top: 12px;
 }
 
 .search-page .search-item {
   color: #333333;
-  font-size: 24rpx;
-  line-height: 32rpx;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: normal;
-  margin-right: 24rpx;
-  margin-bottom: 24rpx;
+  margin-right: 12px;
+  margin-bottom: 12px;
   background: #f5f5f5;
-  border-radius: 38rpx;
-  padding: 12rpx 24rpx;
+  border-radius: 19px;
+  padding: 6px 12px;
 }
 
 .search-page .hover-history-item {
   position: relative;
-  top: 3rpx;
-  left: 3rpx;
+  top: 2px;
+  left: 2px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1) inset;
 }
 
