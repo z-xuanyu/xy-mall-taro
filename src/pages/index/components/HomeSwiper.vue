@@ -4,17 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 12:11:51
- * @LastEditTime: 2022-05-14 15:06:06
+ * @LastEditTime: 2022-06-06 15:23:27
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { ref } from 'vue'
 
 const swiperList = ref([
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner1.png',
-    text: '1',
-  },
   {
     img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner2.png',
     text: '2',

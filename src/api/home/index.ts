@@ -4,10 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:13:09
- * @LastEditTime: 2022-05-13 10:14:14
+ * @LastEditTime: 2022-06-13 17:33:21
  * @Description: Modify here please
  */
 import request from '@/utils/http/request'
+import httpService from '@/utils/http/httpService'
 
 enum Api {
   HomeData = 'homeData',
@@ -16,3 +17,5 @@ enum Api {
 export const getHomeData = async () => {
   return await request({ url: Api.HomeData })
 }
+
+export const test = () => httpService.get(Api.HomeData)

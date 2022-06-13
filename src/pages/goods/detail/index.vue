@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-06-06 10:23:18
+ * @LastEditTime: 2022-06-06 15:34:15
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -17,22 +17,9 @@ defineComponent({
 })
 
 const swiperList = ref([
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner3.png',
-    text: '3',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner4.png',
-    text: '4',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner5.png',
-    text: '5',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner6.png',
-    text: '6',
-  },
+  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08a.png',
+  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08a1.png',
+  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png',
 ])
 </script>
 
@@ -46,12 +33,8 @@ const swiperList = ref([
       :indicator-dots="true"
       :autoplay="true"
     >
-      <swiper-item
-        style="height: 100%"
-        v-for="(item, index) in swiperList"
-        :key="index + item.text"
-      >
-        <image :src="item.img" mode="center" />
+      <swiper-item style="height: 100%" v-for="(item, index) in swiperList" :key="index">
+        <image :src="item" mode="aspectFit" />
       </swiper-item>
     </swiper>
     <!-- 商品信息 -->
@@ -111,7 +94,12 @@ const swiperList = ref([
       <CommentCard />
     </view>
     <!-- 商品描述 -->
-    <view class="flex items-center justify-between"> </view>
+    <view class="flex items-center justify-between">
+      <view class="text-center w-full text-base mt-3 bg-white py-2">
+        详情介绍
+      </view>
+      <image></image>
+    </view>
     <view class="goods-bottom-operation">
       <BuyBar></BuyBar>
     </view>
