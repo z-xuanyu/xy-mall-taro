@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:33
- * @LastEditTime: 2022-06-14 11:12:52
+ * @LastEditTime: 2022-06-14 11:28:07
  * @Description: Modify here please
 -->
 <template>
@@ -19,7 +19,7 @@
       <TabPane title="热门"></TabPane>
       <TabPane title="新品"></TabPane>
     </Tabs>
-    <GoodsList />
+    <GoodsList :list="hotProductList" />
   </view>
 </template>
 
@@ -40,6 +40,7 @@ const tabActive = ref(0)
 
 const bannerList = ref([])
 const navList = ref([])
+const hotProductList = ref([])
 
 onMounted(() => {
   fetchData()
@@ -47,10 +48,11 @@ onMounted(() => {
 
 async function fetchData() {
   const {
-    result: { banners, navigations },
+    result: { banners, navigations, hotProducts },
   } = await getHomeData()
   bannerList.value = banners
   navList.value = navigations
+  hotProductList.value = hotProducts
 }
 </script>
 

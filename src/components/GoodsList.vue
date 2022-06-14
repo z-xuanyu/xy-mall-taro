@@ -4,12 +4,28 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-06-06 10:01:50
- * @Description: Modify here please
+ * @LastEditTime: 2022-06-14 11:31:15
+ * @Description: 商品列表
 -->
 <script setup lang="ts">
 import { Tag } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
+import type { PropType } from 'vue';
+
+interface GoodsItem {
+  _id: string
+  title: string
+  price: number
+  pic: string
+}
+
+// eslint-disable-next-line no-undef
+defineProps({
+  list: {
+    type: Array as PropType<GoodsItem[]>,
+    default: () => [],
+  },
+})
 
 function jumpDetai() {
   Taro.navigateTo({
@@ -20,18 +36,18 @@ function jumpDetai() {
 
 <template>
   <view class="goods-list-column p-2">
-    <view class="goods-list-column__item" v-for="item in 10" :key="item" @click="jumpDetai">
-      <view class="goods-list-column__item-img">
-        <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
+    <view class="goods-list-column__item" v-for="item in list" :key="item._id" @click="jumpDetai">
+      <view>
+        <image class="goods-img" :src="item.pic" />
       </view>
       <view class="goods-list-column__item-title text-overflow-2 px-2">
-        雅迪 双重减震 电动车雅迪 双重减震 电动车雅迪 双重减震 电动车
+        {{ item.title }}
       </view>
       <view class="px-2">
         <Tag type="danger" plain round>限时抢购</Tag>
       </view>
       <view class="px-2 flex justify-between items-center">
-        <nut-price :price="288" :thousands="true" :decimal-digits="0" />
+        <nut-price :price="item.price" :thousands="true" :decimal-digits="0" />
         <nut-icon name="cart" color="red" :size="18"></nut-icon>
       </view>
     </view>
@@ -49,13 +65,19 @@ function jumpDetai() {
     margin-bottom: 10px;
     border-radius: 5px;
     overflow: hidden;
-    image {
+    .goods-img {
       height: 160px;
       width: 100%;
     }
     &-title {
       font-size: 14px;
       color: #333;
+    }
+    .nut-price--symbol-large {
+      font-size: 14px;
+    }
+    .nut-price--large {
+      font-size: 20px;
     }
   }
 }
