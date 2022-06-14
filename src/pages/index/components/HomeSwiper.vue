@@ -4,34 +4,28 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 12:11:51
- * @LastEditTime: 2022-06-06 15:23:27
+ * @LastEditTime: 2022-06-14 11:13:13
  * @Description: Modify here please
 -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { PropType } from 'vue';
 
-const swiperList = ref([
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner2.png',
-    text: '2',
+interface BannerItem {
+  _id: string
+  name: string
+  type: number
+  url: string
+  image: string
+  product: any
+}
+
+// eslint-disable-next-line no-undef
+defineProps({
+  list: {
+    type: Array as PropType<BannerItem[]>,
+    default: () => [],
   },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner3.png',
-    text: '3',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner4.png',
-    text: '4',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner5.png',
-    text: '5',
-  },
-  {
-    img: 'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner6.png',
-    text: '6',
-  },
-])
+})
 </script>
 
 <template>
@@ -43,8 +37,8 @@ const swiperList = ref([
     :indicator-dots="true"
     :autoplay="true"
   >
-    <swiper-item style="height: 100%" v-for="(item, index) in swiperList" :key="index + item.text">
-      <image style="width:100%; height: 100%;" :src="item.img" mode="aspectFill" />
+    <swiper-item style="height: 100%" v-for="item in list" :key="item._id">
+      <image style="width:100%; height: 100%;" :src="item.image" mode="aspectFill" />
     </swiper-item>
   </swiper>
 </template>
