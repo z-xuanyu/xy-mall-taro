@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-06 12:14:28
+ * @LastEditTime: 2022-06-14 14:07:53
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -44,7 +44,6 @@ function onOk() {}
     <view class="sticky-top">
       <Navbar v-if="isWeb" :left-show="false" title="我的购物车"></Navbar>
     </view>
-
     <!-- 提示 -->
     <view class="flex justify-between items-center text-xxs text-grey px-5 my-3">
       <view class="flex items-center">
