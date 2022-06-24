@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 17:43:18
- * @LastEditTime: 2022-05-19 11:08:55
+ * @LastEditTime: 2022-06-24 18:20:37
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -64,7 +64,12 @@ function onClickTop() {
       >
         <view class="order-group__item__icon icon-class">
           <Badge :value="item.orderNum" :max="99" color="#FF4646" top="5" right="5">
-            <nut-icon :name="item.iconName" size="25px" />
+            <nut-icon
+              font-class-name="myicon"
+              class-prefix="myicon"
+              :name="item.iconName"
+              :size="25"
+            />
           </Badge>
         </view>
         <view class="order-group__item__title title-class">{{ item.title }}</view>

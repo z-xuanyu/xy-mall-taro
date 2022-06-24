@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-05-30 17:58:26
+ * @LastEditTime: 2022-06-24 17:58:10
  * @Description: 确认订单
 -->
 <script setup lang="ts">
@@ -32,21 +32,21 @@ function onSubmitOrder(): void {
 </script>
 
 <template>
-  <view class="order-confirm-page pb-10 bg-white mb-10">
+  <view class="order-confirm-page pb-10 mb-10">
     <AddressCard></AddressCard>
     <!-- 商品列表 -->
-    <view class="goods-list px-3">
+    <view class="goods-list px-3 mt-2 pb-2 bg-white">
       <nut-cell icon="shop" title="XYMALL旗舰店"></nut-cell>
-      <view class="goods-list__item flex mb-3" v-for="item in 3" :key="item">
+      <view class="goods-list__item flex mb-3" v-for="item in 1" :key="item">
         <image class="goods-img" src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png" />
         <view class="flex-1 ml-2">
-          <text class="goods-list__item-title text-base text-overflow-2">
+          <text class="goods-list__item-title text-sm text-overflow-2">
             白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
           </text>
           <view class="goods-list__item-price my-1 text-base">
             <text>
               <text>¥</text>
-              <text class="text-lg">999</text>
+              <text class="text-sm">999</text>
               x 1</text
             >
           </view>
@@ -58,49 +58,49 @@ function onSubmitOrder(): void {
       </view>
     </view>
     <!-- cell -->
-    <view class="pay-detail px-3 text-sm">
-      <view class="flex justify-between py-2">
+    <view class="pay-detail px-3 text-sm bg-white pb-2 mt-2">
+      <view class="flex justify-between py-2 border-b">
         <text>商品总额</text>
         <text>￥4284.00</text>
       </view>
-      <view class="flex justify-between py-2">
+      <view class="flex justify-between py-2 border-b">
         <text>运费</text>
         <text>免运费</text>
       </view>
-      <view class="flex justify-between py-2">
+      <view class="flex justify-between py-2 border-b">
         <text>活动优惠</text>
         <text class="text-red">-￥11.00</text>
       </view>
-      <view class="flex justify-between py-2">
+      <view class="flex justify-between py-2 border-b">
         <text>优惠券</text>
         <view>
           <text>选择优惠券</text>
           <nut-icon size="12" name="right" />
         </view>
       </view>
-      <view class="flex justify-between py-2">
+      <view class="flex justify-between py-2 border-b">
         <text>发票</text>
         <view @click="jumpReceipt">
           <text>暂不开发票</text>
           <nut-icon size="12" name="right" />
         </view>
       </view>
-      <view class="flex justify-between py-2">
+      <view class="flex justify-between py-2 border-b">
         <text>订单备注</text>
         <view>
           <text>选填，建议先和商家沟通确认</text>
           <nut-icon size="12" name="right" />
         </view>
       </view>
+      <view class="text-right py-2 ">
+        <text class="text-sm mr-2 text-grey">共三件</text>
+        <text class="text-sm">小计</text>
+        <nut-price :price="4273" size="normal" :thousands="true" />
+      </view>
     </view>
     <view class="submit-btn px-3 bg-white safe-area-bottom items-end flex justify-between">
       <nut-price class="pb-2" :price="4273" :thousands="true" />
       <view class="text-right py-2">
-        <view class="mb-1">
-          <text class="text-sm mr-2 text-grey">共三件</text>
-          <text class="text-sm">小计</text>
-          <nut-price :price="4273" size="normal" :thousands="true" />
-        </view>
         <nut-button type="primary" @click="onSubmitOrder">提交订单</nut-button>
       </view>
     </view>
@@ -110,6 +110,9 @@ function onSubmitOrder(): void {
 <style lang="scss">
 .order-confirm-page {
   padding-bottom: 50px;
+  .border-b {
+    border-bottom: 1px solid #f6f6f6;
+  }
   .goods-list {
     .nut-cell {
       margin-bottom: 0;
@@ -122,8 +125,8 @@ function onSubmitOrder(): void {
     }
     &__item {
       .goods-img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         border-radius: 5px;
       }
     }

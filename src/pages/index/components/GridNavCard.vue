@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-14 10:36:21
- * @LastEditTime: 2022-06-14 11:19:33
+ * @LastEditTime: 2022-06-24 18:05:15
  * @Description: 首页导航卡片
 -->
 <script setup lang="ts">
@@ -27,7 +27,7 @@ defineProps({
 </script>
 
 <template>
-  <view class="nav-card px-4 pt-4">
+  <view class="nav-card mx-2 rounded-xxs pt-2 bg-white mt-2">
     <view v-for="item in list" :key="item._id" class="nav-card__item">
       <view class="flex justify-center">
         <image class="nav-card__item-img" :src="item.pic" />

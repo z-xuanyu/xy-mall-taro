@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-06-06 15:34:15
+ * @LastEditTime: 2022-06-24 17:43:53
  * @Description: Modify here please
 -->
 <script setup lang="ts">
@@ -52,24 +52,8 @@ const swiperList = ref([
           已售1012
         </view>
       </view>
-
-      <view class="goods-detail__info-tags">
-        <view>
-          <nut-tag type="danger" plain>满减</nut-tag>
-          <nut-tag type="danger" plain>满减</nut-tag>
-          <nut-tag type="danger" plain>满减</nut-tag>
-          <nut-tag type="danger" plain>满减</nut-tag>
-        </view>
-        <view class="goods-detail__info-tags__coupon">
-          <text>
-            领劵
-          </text>
-          <nut-icon size="12" name="right"></nut-icon>
-        </view>
-      </view>
-
       <view class="goods-detail__info-title">
-        <text class="text-lg">
+        <text class="text-base">
           华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro
         </text>
         <nut-icon name="share"></nut-icon>
@@ -94,11 +78,8 @@ const swiperList = ref([
       <CommentCard />
     </view>
     <!-- 商品描述 -->
-    <view class="flex items-center justify-between">
-      <view class="text-center w-full text-base mt-3 bg-white py-2">
-        详情介绍
-      </view>
-      <image></image>
+    <view class="text-center w-full text-base mt-3 bg-white py-2">
+      详情介绍
     </view>
     <view class="goods-bottom-operation">
       <BuyBar></BuyBar>
@@ -107,85 +88,5 @@ const swiperList = ref([
 </template>
 
 <style lang="scss">
-.goods-detail {
-  padding-bottom: 100px;
-  &__banner {
-    height: 350px;
-    image {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .swiper-container {
-    z-index: 0;
-  }
-  &__info {
-    padding: 15px 10px;
-    background-color: #fff;
-    &-price {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      &__up {
-        color: #ff4d4f;
-      }
-      &__del {
-        color: #999;
-        text-decoration: line-through;
-      }
-      &__sold {
-        font-size: 14px;
-        color: #999;
-      }
-    }
-    &-tags {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .nut-tag {
-        margin-right: 5px;
-      }
-      &__coupon {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: #ff4d4f;
-      }
-    }
-    &-title {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .nut-icon {
-        color: #999;
-        margin-left: 20px;
-      }
-    }
-  }
-  &__select {
-    margin-top: 10px;
-    padding: 12px 15px;
-    background-color: #fff;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #999;
-    &-label {
-      text {
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.goods-bottom-operation {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #fff;
-  padding-bottom: env(safe-area-inset-bottom);
-}
+@import './index.scss';
 </style>
