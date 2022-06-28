@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-06-28 14:42:30
+ * @LastEditTime: 2022-06-28 16:13:40
  * @Description: 商品sku选择组件
 -->
 <script setup lang="ts">
@@ -12,8 +12,10 @@ import { switchTab, showToast } from '@tarojs/taro'
 import { type PropType, ref, onMounted, computed } from 'vue'
 import { addCart } from '@/api/cart';
 import { useUserStore } from '@/stores/modules/user'
+import { useCart, fetchCart } from '@/hooks/useCart'
 
 const useUser = useUserStore()
+const { shopCartNum } = useCart()
 
 interface jumpItem {
   showCartNum: boolean
@@ -45,11 +47,6 @@ const props = defineProps({
   isSlotButton: {
     type: Boolean,
     default: false,
-  },
-  // 购物车气泡数量
-  shopCartNum: {
-    type: Number,
-    default: 0,
   },
   buttonType: {
     type: Number,
@@ -160,16 +157,16 @@ async function clickBtnOperate(op:any) {
     num: ~~value,
     skuName: props.info.skuType === 2 ? currentSelectSku.value?.skuNames.join('-') : '默认',
     price: goods.value.price,
+    skuId: props.info.skuType === 2 ? currentSelectSku.value._id : null,
   }
   if(isBuyNow.value) {
     console.log('立即购买');
     return false
   }
   await addCart(data)
+  fetchCart()
+  base.value = false
   showToast({title: '加入成功', icon: 'success'})
-  switchTab({
-    url: '/pages/cart/index',
-  })
 }
 function close() {
   console.log('关闭')

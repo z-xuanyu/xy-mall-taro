@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-06-27 17:22:15
+ * @LastEditTime: 2022-06-28 15:53:20
  * @Description: 商品详情
 -->
 <script lang="ts">
@@ -97,7 +97,7 @@ async function fetchData() {
       详情介绍
     </view>
     <view class="goods-bottom-operation">
-      <BuyBar :info="goodsInfo" :shopCartNum="shopCartNum"></BuyBar>
+      <BuyBar :info="goodsInfo"></BuyBar>
     </view>
   </view>
 </template>

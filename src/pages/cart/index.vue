@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-28 15:03:29
+ * @LastEditTime: 2022-06-28 16:07:56
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -14,10 +14,11 @@ export default {
 </script>
 <script setup lang="ts">
 import { Card, Navbar } from '@nutui/nutui-taro'
-import Taro from '@tarojs/taro'
+import { navigateTo, useDidShow, showToast } from '@tarojs/taro'
 import { ref } from 'vue'
-import { useCart } from '@/hooks/useCart'
+import { useCart, fetchCart } from '@/hooks/useCart'
 import { isWeb } from '@/utils/env'
+import { deleteCart } from '@/api/cart'
 
 const selectGoodsGroupRef = ref<HTMLElement | null>(null)
 const { cartList, selectGoodsGroup, totalPrice, isSelectAll } = useCart()
@@ -26,17 +27,39 @@ const isEdit = ref(false)
 const visibleDel = ref(false)
 // 跳转到结算页面
 function handleToSettle() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/order-confirm/index',
   })
 }
 
+useDidShow(() => {
+  fetchCart()
+})
 // 全选改变
 function changeAllSelect(value: boolean) {
   return (selectGoodsGroupRef.value as any).toggleAll(value)
 }
 
-function onOk() {}
+// 删除购物车商品
+async function onDelOk() {
+  try {
+    for (const item of selectGoodsGroup.value) {
+      await deleteCart(item)
+    }
+    showToast({
+      title: '删除成功',
+      icon: 'success',
+      duration: 1000,
+    })
+    fetchCart()
+  } catch (error) {
+    showToast({
+      title: '删除失败',
+      icon: 'none',
+      duration: 1000,
+    })
+  }
+}
 </script>
 
 <template>
@@ -117,7 +140,7 @@ function onOk() {}
       >
     </view>
     <!-- 删除提示 -->
-    <nut-dialog content="确认要删除选中商品吗？" v-model:visible="visibleDel" @ok="onOk" />
+    <nut-dialog content="确认要删除选中商品吗？" v-model:visible="visibleDel" @ok="onDelOk" />
   </view>
 </template>
 

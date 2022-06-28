@@ -4,11 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-26 15:01:18
- * @LastEditTime: 2022-06-28 15:04:57
+ * @LastEditTime: 2022-06-28 16:01:18
  * @Description: 购物hook
  */
 
-import { onMounted, ref, computed, unref, nextTick, watch } from 'vue'
+import { ref, computed, unref, nextTick, watch } from 'vue'
 import { getCart } from '@/api/cart'
 
 const cartList = ref<any>([])
@@ -17,11 +17,13 @@ const selectGoodsGroup = ref<Array<string>>([])
 
 const isSelectAll = ref<boolean>(false)
 
+// 请求购物车数据
+export async function fetchCart() {
+  const res = await getCart()
+  cartList.value = res
+}
+
 export function useCart() {
-  onMounted(async () => {
-    const res = await getCart()
-    cartList.value = res
-  })
   // 购物车就和
   const totalPrice = computed(() => {
     const fliterGoods = cartList.value.filter((item: any) =>
@@ -32,10 +34,6 @@ export function useCart() {
     }, 0)
   })
 
-  // 删除购物车
-  const deleteCart = (id: string) => {
-    console.log(id)
-  }
   watch(
     selectGoodsGroup,
     () => {
@@ -59,12 +57,14 @@ export function useCart() {
     cartList.value = []
   }
 
+  const shopCartNum = computed(() => cartList.value.length)
+
   return {
     cartList,
     selectGoodsGroup,
     totalPrice,
     isSelectAll,
-    deleteCart,
+    shopCartNum,
     addCartNum,
     clearCart,
   }
