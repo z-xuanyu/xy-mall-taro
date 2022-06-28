@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-14 14:07:53
+ * @LastEditTime: 2022-06-28 15:03:29
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -75,18 +75,17 @@ function onOk() {}
       <nut-checkboxgroup v-model="selectGoodsGroup" ref="selectGoodsGroupRef">
         <view
           class="cart-list__item bg-white flex rounded-xxs items-center my-3 py-2"
-          v-for="(item, index) in cartList"
-          :key="index"
+          v-for="item in cartList"
+          :key="item._id"
         >
-          <nut-checkbox :label="item.goods_id"></nut-checkbox>
+          <nut-checkbox :label="item._id"></nut-checkbox>
           <Card
-            :img-url="item.imgUrl"
-            :title="item.title"
-            :price="item.price"
-            :vipPrice="item.vipPrice"
-            :shopDesc="item.shopDesc"
-            :delivery="item.delivery"
-            :shopName="item.shopName"
+            :img-url="item.productPic"
+            :title="item.productName"
+            :price="String(item.price)"
+            shopDesc="热销"
+            delivery="新品"
+            :shopName="item.skuName"
           >
             <template #footer>
               <nut-inputnumber v-model="item.num" />
