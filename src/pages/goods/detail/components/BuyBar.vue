@@ -4,12 +4,12 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-06-06 10:19:35
+ * @LastEditTime: 2022-06-28 10:19:46
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
-import { PropType, ref, onMounted } from 'vue'
+import { type PropType, ref, onMounted } from 'vue'
 
 interface jumpItem {
   showCartNum: boolean
@@ -59,6 +59,11 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  // 商品信息
+  info: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 function toAddCart() {
@@ -77,40 +82,80 @@ function toNav(item: jumpItem) {
 
 // sku
 const base = ref(false)
-const sku = ref([])
+const sku = ref<any>([])
+const spu = ref([])
 const goods = ref({})
+// 当前选中sku
+const currentSelectSku = ref({})
 function selectSku(ss: any) {
-  const { sku, skuIndex, parentSku, parentIndex } = ss
-  console.log(skuIndex, parentSku, 585555)
-  if (sku.disable) return false
-  sku.value[parentIndex].list.forEach((s) => {
-    s.active = s.id === sku.id
+  if (ss.sku.disable) return false
+  // 选中
+  sku.value[ss.parentIndex].list.forEach((item: any) => {
+    item.active = item.id === ss.sku.id
   })
+  // 设置商品信息
+  findCurrentSku()
+}
+
+onMounted(() => {
+  setTimeout(()=>{
+    const { skuAttrs, skuType, skus, costPrice, pic, _id } = props.info
+    spu.value = skus
+    // 多规格
+    if(skuType === 2) {
+      sku.value = skuAttrs.map((s) => {
+      return {
+        id: s._id,
+        name: s.name,
+        list: s.values.map((v, vIdx) => {
+          return {
+            id: s._id + vIdx,
+            name: v,
+            active: !vIdx?true:false,
+            disable: false,
+          }
+          }),
+        }
+      })
+      findCurrentSku()
+      return false
+    }
+    // 单规格
+    goods.value = {
+      skuId: _id,
+      price: costPrice,
+      imagePath: pic,
+    }
+  },500)
+})
+
+// 查找当前选择规格价格
+function findCurrentSku() {
+  const list: Array<string> = []
+
+  sku.value.forEach((item: any)=>{
+    item.list.forEach(s=>{
+      if(s.active) {
+        list.push(s.name)
+      }
+    })
+  })
+  // 查询选择spu
+  const spuInfo: any = spu.value.find((item:any)=> list.every(v=> item.skuNames.includes(v)))
+  currentSelectSku.value = spuInfo
   goods.value = {
-    skuId: sku.id,
-    price: '4599.00',
-    imagePath:
-      '//img14.360buyimg.com/n4/jfs/t1/215845/12/3788/221990/618a5c4dEc71cb4c7/7bd6eb8d17830991.jpg',
+    skuId: spuInfo._id,
+    price: spuInfo.price,
+    imagePath: spuInfo.image,
   }
 }
-function clickBtnOperate(op: string) {
-  console.log('点击了操作按钮', op)
+// sku确认
+function clickBtnOperate(op:string) {
+  console.log('点击了操作按钮', currentSelectSku.value, goods.value, op)
 }
 function close() {
   console.log('关闭')
 }
-
-onMounted(() => {
-  Taro.request({
-    url: 'https://storage.360buyimg.com/nutui/3x/data.js',
-    success: (res) => {
-      const { Sku, Goods, imagePathMap } = res.data
-      goods.value = Goods
-      sku.value = Sku
-      console.log(imagePathMap)
-    },
-  })
-})
 </script>
 
 <template>

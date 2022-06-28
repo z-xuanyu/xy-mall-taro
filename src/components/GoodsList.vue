@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-06-14 11:31:15
+ * @LastEditTime: 2022-06-27 14:31:56
  * @Description: 商品列表
 -->
 <script setup lang="ts">
@@ -27,16 +27,22 @@ defineProps({
   },
 })
 
-function jumpDetai() {
+// 跳转商品详情
+function jumpDetail(id: string) {
   Taro.navigateTo({
-    url: '/pages/goods/detail/index',
+    url: `/pages/goods/detail/index?goods_id=${id}`,
   })
 }
 </script>
 
 <template>
   <view class="goods-list-column p-2">
-    <view class="goods-list-column__item" v-for="item in list" :key="item._id" @click="jumpDetai">
+    <view
+      class="goods-list-column__item"
+      v-for="item in list"
+      :key="item._id"
+      @click="jumpDetail(item._id)"
+    >
       <view>
         <image class="goods-img" :src="item.pic" />
       </view>

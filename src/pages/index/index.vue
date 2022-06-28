@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 09:44:33
- * @LastEditTime: 2022-06-14 11:28:07
+ * @LastEditTime: 2022-06-27 15:04:52
  * @Description: Modify here please
 -->
 <template>
@@ -47,9 +47,7 @@ onMounted(() => {
 })
 
 async function fetchData() {
-  const {
-    result: { banners, navigations, hotProducts },
-  } = await getHomeData()
+  const { banners, navigations, hotProducts } = await getHomeData()
   bannerList.value = banners
   navList.value = navigations
   hotProductList.value = hotProducts

@@ -4,23 +4,40 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-06-24 17:43:53
- * @Description: Modify here please
+ * @LastEditTime: 2022-06-27 17:22:15
+ * @Description: 商品详情
 -->
+<script lang="ts">
+export default {
+  name: 'GoodsDetail',
+}
+</script>
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
+import { useRouter, showToast } from '@tarojs/taro'
+import { ref, onBeforeMount } from 'vue'
 import CommentCard from './components/CommentCard.vue'
 import BuyBar from './components/BuyBar.vue'
+import { getGoodsById } from '@/api/goods'
 
-defineComponent({
-  name: 'GoodsDetail',
+const route = useRouter()
+// 商品信息
+const goodsInfo = ref<any>({})
+
+// 购物车数量
+const shopCartNum = ref(0)
+
+onBeforeMount(() => {
+  fetchData()
 })
 
-const swiperList = ref([
-  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08a.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08a1.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png',
-])
+async function fetchData() {
+  const { goods_id } = route.params
+  if (!goods_id) return showToast({ title: '商品id不存在', icon: 'none' })
+  const res = await getGoodsById(goods_id as string)
+  goodsInfo.value = res
+  shopCartNum.value = 5
+  console.log(goodsInfo.value)
+}
 </script>
 
 <template>
@@ -33,7 +50,7 @@ const swiperList = ref([
       :indicator-dots="true"
       :autoplay="true"
     >
-      <swiper-item style="height: 100%" v-for="(item, index) in swiperList" :key="index">
+      <swiper-item style="height: 100%" v-for="(item, index) in goodsInfo.bannerImg" :key="index">
         <image :src="item" mode="aspectFit" />
       </swiper-item>
     </swiper>
@@ -41,20 +58,18 @@ const swiperList = ref([
     <view class="goods-detail__info">
       <view class="goods-detail__info-price">
         <view>
-          <nut-price :price="298" :thousands="true" />
+          <nut-price :price="goodsInfo.costPrice" :thousands="true" />
           <text class="goods-detail__info-price__up text-xs">
             起
           </text>
-          <text class="goods-detail__info-price__del text-xs">￥498 </text>
+          <text class="goods-detail__info-price__del text-xs">￥{{ goodsInfo.price }} </text>
         </view>
 
-        <view class="goods-detail__info-price__sold">
-          已售1012
-        </view>
+        <view class="goods-detail__info-price__sold"> 已售{{ goodsInfo.sales }} </view>
       </view>
       <view class="goods-detail__info-title">
         <text class="text-base">
-          华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro华为 HUAWEI P30 Pro
+          {{ goodsInfo.title }}
         </text>
         <nut-icon name="share"></nut-icon>
       </view>
@@ -82,7 +97,7 @@ const swiperList = ref([
       详情介绍
     </view>
     <view class="goods-bottom-operation">
-      <BuyBar></BuyBar>
+      <BuyBar :info="goodsInfo" :shopCartNum="shopCartNum"></BuyBar>
     </view>
   </view>
 </template>

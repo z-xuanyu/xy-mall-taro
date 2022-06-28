@@ -4,18 +4,25 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-13 16:46:50
- * @LastEditTime: 2022-06-13 17:12:44
+ * @LastEditTime: 2022-06-27 15:05:58
  * @Description: Modify here please
  */
-import { request as _request, addInterceptor, showToast, uploadFile } from '@tarojs/taro'
+import {
+  request as _request,
+  addInterceptor,
+  showToast,
+  uploadFile,
+  showLoading,
+  hideLoading,
+} from '@tarojs/taro'
 import { getCache } from '../storageCache'
 import ApiConfig from './api'
 const BASE_URL_API = ApiConfig.api_url
 
 enum ECode {
-  UN_AUTHORIZED = 401, // 无权访问
+  UN_AUTHORIZED = 403, // 无权访问
   OPERATION_SUCCESS = 10000, // "操作成功"
-  GAIN_SUCCESS = 10001, // "成功获取数据，数据非空"
+  GAIN_SUCCESS = 0, // "成功获取数据，数据非空"
   GAIN_SUCCESS_EMPTY = 10002, // "操作成功,数据为空"
   OPERATION_FAIL = 20000, // "操作失败"
   PARM_ERRO = 20001, // "参数错误"
@@ -52,8 +59,14 @@ const interceptor = (chain) => {
 }
 addInterceptor(interceptor)
 function request(url: string, options: Taro.uploadFile.Option | TOptions, isFile?: boolean) {
+  // 加载loading
+  showLoading({
+    title: '加载中',
+  })
+
   const newOptions = { ...options }
   const token = getCache('token')
+  // 是否文件上传
   if (isFile) {
     newOptions.header = {
       'Content-Type': 'multipart/form-data',
@@ -77,12 +90,25 @@ function request(url: string, options: Taro.uploadFile.Option | TOptions, isFile
         return Promise.reject(error)
       })
   }
+  // 请求
   return _request({
     url: BASE_URL_API + url,
     ...options,
   })
     .then((res) => {
-      return Promise.resolve(res.data)
+      const { code, result, message } = res.data
+      // 关闭loading
+      hideLoading()
+
+      // 成功
+      if (code === ECode.GAIN_SUCCESS) {
+        return Promise.resolve(result)
+      }
+      // 未登录
+      if (code === ECode.UN_AUTHORIZED) {
+        return Promise.reject({ code, message })
+      }
+      return Promise.resolve(message)
     })
     .catch((error) => {
       const errMsg = error.msg || error.errMsg || '异常'
