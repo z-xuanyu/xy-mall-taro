@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-13 16:46:50
- * @LastEditTime: 2022-06-27 15:05:58
+ * @LastEditTime: 2022-06-28 10:29:37
  * @Description: Modify here please
  */
 import {
@@ -133,7 +133,7 @@ const httpService = {
   put(url: string, data: any) {
     return request(url, { method: 'PUT', data })
   },
-  delete(url: string, data: any) {
+  delete(url: string, data?: any) {
     return request(url, { method: 'DELETE', data })
   },
 }

@@ -4,12 +4,16 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-06-28 10:19:46
- * @Description: Modify here please
+ * @LastEditTime: 2022-06-28 14:42:30
+ * @Description: 商品sku选择组件
 -->
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
-import { type PropType, ref, onMounted } from 'vue'
+import { switchTab, showToast } from '@tarojs/taro'
+import { type PropType, ref, onMounted, computed } from 'vue'
+import { addCart } from '@/api/cart';
+import { useUserStore } from '@/stores/modules/user'
+
+const useUser = useUserStore()
 
 interface jumpItem {
   showCartNum: boolean
@@ -66,27 +70,18 @@ const props = defineProps({
   },
 })
 
-function toAddCart() {
-  if (!props.isStock) return
-  base.value = true
-}
+// 是否立即购买
+const isBuyNow = ref<boolean>(false)
 
-function toBuyNow() {
-  if (!props.isStock) return
-  base.value = true
-}
-
-function toNav(item: jumpItem) {
-  Taro.switchTab({ url: item.url })
-}
+const isLogin = computed(() => useUser.isLogin)
 
 // sku
 const base = ref(false)
 const sku = ref<any>([])
 const spu = ref([])
-const goods = ref({})
+const goods = ref<any>({})
 // 当前选中sku
-const currentSelectSku = ref({})
+const currentSelectSku = ref<any>({})
 function selectSku(ss: any) {
   if (ss.sku.disable) return false
   // 选中
@@ -150,11 +145,54 @@ function findCurrentSku() {
   }
 }
 // sku确认
-function clickBtnOperate(op:string) {
-  console.log('点击了操作按钮', currentSelectSku.value, goods.value, op)
+async function clickBtnOperate(op:any) {
+  // 是否登录
+  if (!isLogin.value) {
+    await useUser.handleMiniLogin()
+  }
+
+  // 商品数量
+  const { value } = op;
+  const data = {
+    productId: props.info._id,
+    productName: props.info.title,
+    productPic: goods.value.imagePath,
+    num: ~~value,
+    skuName: props.info.skuType === 2 ? currentSelectSku.value?.skuNames.join('-') : '默认',
+    price: goods.value.price,
+  }
+  if(isBuyNow.value) {
+    console.log('立即购买');
+    return false
+  }
+  await addCart(data)
+  showToast({title: '加入成功', icon: 'success'})
+  switchTab({
+    url: '/pages/cart/index',
+  })
 }
 function close() {
   console.log('关闭')
+}
+
+
+
+// 加入购物车
+function toAddCart() {
+  if (!props.isStock) return
+  base.value = true
+  isBuyNow.value = false
+}
+
+// 立即购买
+function toBuyNow() {
+  if (!props.isStock) return
+  base.value = true
+  isBuyNow.value = true
+}
+
+function toNav(item: jumpItem) {
+  switchTab({ url: item.url })
 }
 </script>
 

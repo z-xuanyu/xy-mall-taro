@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-25 10:48:47
- * @LastEditTime: 2022-06-13 16:57:34
+ * @LastEditTime: 2022-06-28 10:45:06
  * @Description: Modify here please
  */
 
@@ -30,7 +30,7 @@ export function getUserCode() {
   return new Promise((resolve, reject) => {
     Taro.login({
       success: (res) => {
-        resolve(res.code)
+        resolve(res.code as string)
       },
       fail: (error) => {
         reject(error)

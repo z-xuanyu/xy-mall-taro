@@ -4,12 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:14:10
- * @LastEditTime: 2022-05-26 12:06:28
+ * @LastEditTime: 2022-06-28 14:11:56
  * @Description: 用户信息
  */
 import { defineStore } from 'pinia'
 import { getUserInfo, getUserCode } from '@/utils/getPermission'
 import { setCache, getCache } from '@/utils/storageCache'
+import { minLogin } from '@/api/auth'
 
 interface UserInfoType {
   // 用户昵称
@@ -39,12 +40,17 @@ export const useUserStore = defineStore({
     },
     // 小程序登录
     async handleMiniLogin() {
-      const info = await getUserInfo()
+      const info: any = await getUserInfo()
       const code = await getUserCode()
-      this.setUserInfo(info)
-      this.setToken(code)
+      const res = await minLogin({
+        code: code as string,
+        nickName: info.nickName,
+        avatarUrl: info.avatarUrl,
+      })
+      this.setUserInfo({ nickName: res.nickName, avatarUrl: res.avatarUrl })
+      this.setToken(res.accessToken)
       setCache('userInfo', info)
-      setCache('token', code)
+      setCache('token', res.accessToken)
     },
   },
 })
