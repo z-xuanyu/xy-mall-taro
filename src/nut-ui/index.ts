@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 18:12:36
- * @LastEditTime: 2022-05-20 12:05:18
+ * @LastEditTime: 2022-06-29 11:03:58
  * @Description: nut ui
  */
 import { App } from 'vue'
@@ -26,7 +26,6 @@ import {
   Cell,
   CellGroup,
   TextArea,
-  Switch,
   OverLay,
   Dialog,
   CheckboxGroup,
@@ -51,7 +50,6 @@ export function setupNutUI(app: App) {
     .use(Cell)
     .use(CellGroup)
     .use(TextArea)
-    .use(Switch)
     .use(Address)
     .use(Elevator)
     .use(OverLay)

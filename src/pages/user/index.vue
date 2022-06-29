@@ -4,18 +4,23 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-06-24 18:20:01
- * @Description: Modify here please
+ * @LastEditTime: 2022-06-29 14:59:52
+ * @Description: 用户中心
 -->
+<script lang="ts">
+export default {
+  name: 'UserPage',
+}
+</script>
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
+import { ref, computed, unref } from 'vue'
 import UserCenterCard from './components/UserCenterCard.vue'
 import OrderGroup from './components/OrderGroup.vue'
 import Taro from '@tarojs/taro'
-defineComponent({
-  name: 'UserPage',
-})
+import { useUserStore } from '@/stores/modules/user'
 
+const useUser = useUserStore()
+const isLogin = computed(() => useUser.isLogin)
 const orderTagInfos = ref([
   {
     title: '待付款',
@@ -93,6 +98,9 @@ interface jumpItem {
   desc?: string
 }
 const jumpPage = (item: jumpItem) => {
+  if (!unref(isLogin)) {
+    return useUser.handleMiniLogin()
+  }
   Taro.navigateTo({
     url: item.url,
   })

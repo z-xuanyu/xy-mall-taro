@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-13 16:46:50
- * @LastEditTime: 2022-06-28 10:29:37
+ * @LastEditTime: 2022-06-29 14:56:49
  * @Description: Modify here please
  */
 import {
@@ -14,13 +14,15 @@ import {
   uploadFile,
   showLoading,
   hideLoading,
+  navigateBack,
+  showModal,
 } from '@tarojs/taro'
-import { getCache } from '../storageCache'
+import { getCache, removeCache } from '../storageCache'
 import ApiConfig from './api'
 const BASE_URL_API = ApiConfig.api_url
 
 enum ECode {
-  UN_AUTHORIZED = 403, // 无权访问
+  UN_AUTHORIZED = 401, // 无权访问
   OPERATION_SUCCESS = 10000, // "操作成功"
   GAIN_SUCCESS = 0, // "成功获取数据，数据非空"
   GAIN_SUCCESS_EMPTY = 10002, // "操作成功,数据为空"
@@ -36,9 +38,9 @@ enum ECode {
 }
 
 export interface IApiData {
-  data: any
+  result: any
   code: ECode
-  msg: string
+  message: string
 }
 type TOptions = Omit<Taro.request.Option<any>, 'url'>
 const interceptor = (chain) => {
@@ -96,7 +98,7 @@ function request(url: string, options: Taro.uploadFile.Option | TOptions, isFile
     ...options,
   })
     .then((res) => {
-      const { code, result, message } = res.data
+      const { code, result, message, statusCode } = res.data
       // 关闭loading
       hideLoading()
 
@@ -105,8 +107,24 @@ function request(url: string, options: Taro.uploadFile.Option | TOptions, isFile
         return Promise.resolve(result)
       }
       // 未登录
-      if (code === ECode.UN_AUTHORIZED) {
-        return Promise.reject({ code, message })
+      if (statusCode === ECode.UN_AUTHORIZED) {
+        console.log('请重新登陆')
+        // 清除token
+        removeCache('token')
+        // 清除用户信息
+        removeCache('userInfo')
+
+        showModal({
+          title: '提示',
+          content: '登录已过期，请重新登录',
+          showCancel: false,
+          confirmText: '确定',
+          success: (res) => {
+            if (res.confirm) {
+              navigateBack()
+            }
+          },
+        })
       }
       return Promise.resolve(message)
     })

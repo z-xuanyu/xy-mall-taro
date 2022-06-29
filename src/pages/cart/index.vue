@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-28 16:07:56
+ * @LastEditTime: 2022-06-29 10:00:24
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -27,6 +27,12 @@ const isEdit = ref(false)
 const visibleDel = ref(false)
 // 跳转到结算页面
 function handleToSettle() {
+  if (selectGoodsGroup.value.length === 0) {
+    return showToast({
+      title: '请选择商品',
+      icon: 'none',
+    })
+  }
   navigateTo({
     url: '/pages/order/order-confirm/index',
   })
