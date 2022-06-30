@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:59:04
- * @LastEditTime: 2022-06-30 10:32:20
+ * @LastEditTime: 2022-06-30 17:56:12
  * @Description: 用户地址
 -->
 <script lang="ts">
@@ -13,9 +13,10 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { navigateTo, showToast, useDidShow, useRouter } from '@tarojs/taro'
+import { navigateTo, showToast, useDidShow, useRouter, navigateBack } from '@tarojs/taro'
 import { ref } from 'vue'
 import { getUserAddress, deleteUserAddress } from '@/api/user'
+import { updateOrderAddress } from '@/api/order'
 
 const route = useRouter()
 
@@ -73,11 +74,15 @@ function editClick(_: Event, item: AddressItem) {
   })
 }
 // 点击地址item
-function itemClick(_: Event, item: AddressItem) {
+async function itemClick(_: Event, item: AddressItem) {
   if (route.params.from && route.params.from === 'orderConfirm') {
     navigateTo({
       url: '/pages/order/order-confirm/index?id=' + item.id,
     })
+  }
+  if (route.params.orderId) {
+    await updateOrderAddress({ orderId: route.params.orderId, addressId: item.id })
+    navigateBack()
   }
 }
 

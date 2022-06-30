@@ -4,26 +4,36 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:41
- * @LastEditTime: 2022-05-30 18:19:31
- * @Description: Modify here please
+ * @LastEditTime: 2022-06-30 18:02:51
+ * @Description: 订单详细页面
 -->
+<script lang="ts">
+export default {
+  name: 'UserOrderDetailPage',
+}
+</script>
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import { CountDown } from '@nutui/nutui-taro'
-import Taro from '@tarojs/taro'
+import { setClipboardData, showToast, navigateTo, useRouter, useDidShow } from '@tarojs/taro'
+import { getOrderDetail } from '@/api/order'
 
-defineComponent({
-  name: 'OrderDetailPage',
-})
-
+const route = useRouter()
 const endTime = ref(Date.now() + 60 * 30 * 1000)
+const orderId = route.params.id
+const orderDetail = ref<any>({})
+
+useDidShow(async () => {
+  const res = await getOrderDetail(orderId!)
+  orderDetail.value = res
+})
 
 // 复制订单编号
 function onCopyOrderNo() {
-  Taro.setClipboardData({
+  setClipboardData({
     data: '123456789',
     success: () => {
-      Taro.showToast({
+      showToast({
         title: '复制成功',
         icon: 'none',
         duration: 2000,
@@ -34,15 +44,15 @@ function onCopyOrderNo() {
 
 // 跳转订单发票详细
 function jumpInvoiceDetail() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/invoice-detail/index',
   })
 }
 
 // 跳转地址列表
 function jumpAddresList() {
-  Taro.navigateTo({
-    url: '/pages/user/menus/address/index',
+  navigateTo({
+    url: '/pages/user/menus/address/index?orderId=' + orderDetail.value._id,
   })
 }
 </script>
@@ -68,53 +78,56 @@ function jumpAddresList() {
           <nut-icon name="locationg3"></nut-icon>
           <view class="ml-2">
             <view class="text-sm">
-              张三 15800021934
+              {{ orderDetail?.addressId?.name }} {{ orderDetail?.addressId?.phone }}
             </view>
-            <view class="text-xs text-grey mt-2 flex-1">
-              收货地址：广东省深圳市南山区科技南一路
+            <view class="text-xs text-grey mt-2">
+              收货地址：{{ orderDetail?.addressId?.address }}{{ orderDetail?.addressId?.detail }}
             </view>
           </view>
         </view>
-        <view class="text-red text-base" @click="jumpAddresList">修改</view>
+        <view class="text-red text-base address-edit" @click="jumpAddresList">修改</view>
       </view>
     </view>
-    <!-- goods -->
-    <view class="bg-white p-4 mt-3">
-      <view class="flex items-center">
-        <nut-icon name="shop"></nut-icon>
-        <text class="ml-2 text-base">XYMALL旗舰店</text>
-      </view>
-      <view class="goods-list py-3">
-        <view class="flex mb-2 goods-list__item" v-for="item in 3" :key="item">
-          <image
-            class="goods-img"
-            src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png"
-          />
-          <view class="flex-1 ml-2">
-            <text class="text-overflow-2 text-base">
-              白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
-            </text>
-            <view class="text-xs goods-price">
-              <text>
-                <text>¥</text>
-                <text class="text-lg">999</text>
-                x 1</text
-              >
-            </view>
-            <view class="goods-list__item-sku text-xs text-grey">
-              <text>颜色：白色</text>
-              <text>尺码：XL</text>
+    <view class="px-2 mt-3 container">
+      <!-- 商品信息 -->
+      <view class="bg-white p-2 rounded-xxs">
+        <view class="flex items-center">
+          <text class="ml-2 text-base">商品信息</text>
+        </view>
+        <view class="goods-list py-3">
+          <view
+            class="flex mb-2 goods-list__item"
+            v-for="item in orderDetail.products"
+            :key="item._id"
+          >
+            <image class="goods-img" :src="item.productPic" />
+            <view class="flex-1 ml-2">
+              <text class="text-overflow-2 text-xxs">
+                {{ item.productName }}
+              </text>
+              <view class="text-xs goods-price">
+                <text>
+                  <text>¥</text>
+                  <text class="text-lg">{{ item.price }}</text>
+                  x {{ item.num }}</text
+                >
+              </view>
+              <view class="goods-list__item-sku text-xxs text-grey">
+                <text>规格:</text>
+                <text>{{ item.skuName }}</text>
+              </view>
             </view>
           </view>
         </view>
       </view>
-      <view class="text-xs">
+
+      <view class="text-xxs bg-white mt-3 p-2 px-4 rounded-xxs">
         <view class="flex justify-between py-2">
-          <text>商品总额</text>
-          <text>￥4284.00</text>
+          <text class="text-grey">商品总额</text>
+          <text>￥{{ orderDetail.totalPrice }}</text>
         </view>
         <view class="flex justify-between py-2">
-          <text>运费</text>
+          <text class="text-grey">运费</text>
           <text>免运费</text>
         </view>
         <view class="flex justify-between py-2">
@@ -127,43 +140,43 @@ function jumpAddresList() {
         </view>
         <view class="flex justify-between py-2">
           <text>应付</text>
-          <nut-price :price="158" size="normal" :thousands="true" />
+          <nut-price :price="orderDetail.totalPrice" size="normal" :thousands="true" />
         </view>
       </view>
-    </view>
 
-    <!-- 订单备注信息 -->
-    <view class="bg-white p-4 my-3 order-remark text-xs">
-      <view class="flex justify-between py-1">
-        <text>订单编号</text>
-        <view class="flex items-center"
-          ><text class="mr-2">wx545456454564</text
-          ><nut-button type="default" size="mini" class="px-2 py-0" @click="onCopyOrderNo"
-            >复制</nut-button
-          ></view
-        >
-      </view>
-      <view class="flex justify-between py-2">
-        <text>下单时间</text>
-        <text>2022-05-19 15:30</text>
-      </view>
-      <view class="flex justify-between py-1">
-        <text>发票</text>
-        <view class="flex items-center"
-          ><text class="mr-2">不开发票</text
-          ><nut-button type="default" @click="jumpInvoiceDetail" size="mini" class="px-2 py-0"
-            >查看</nut-button
-          ></view
-        >
-      </view>
-      <view class="flex justify-between py-2">
-        <text>备注</text>
-        <text>送电池吗？</text>
-      </view>
-      <view class="flex justify-center pt-3 mt-2 contact-service">
-        <view class="flex items-center">
-          <nut-icon name="service"></nut-icon>
-          <text class="ml-2">联系客服</text>
+      <!-- 订单备注信息 -->
+      <view class="bg-white p-4 my-3 order-remark text-xxs rounded-xxs">
+        <view class="flex justify-between py-1">
+          <text>订单编号</text>
+          <view class="flex items-center"
+            ><text class="mr-2">wx545456454564</text
+            ><nut-button type="default" size="mini" class="px-2 py-0" @click="onCopyOrderNo"
+              >复制</nut-button
+            ></view
+          >
+        </view>
+        <view class="flex justify-between py-2">
+          <text>下单时间</text>
+          <text>2022-05-19 15:30</text>
+        </view>
+        <view class="flex justify-between py-1">
+          <text>发票</text>
+          <view class="flex items-center"
+            ><text class="mr-2">不开发票</text
+            ><nut-button type="default" @click="jumpInvoiceDetail" size="mini" class="px-2 py-0"
+              >查看</nut-button
+            ></view
+          >
+        </view>
+        <view class="flex justify-between py-2">
+          <text>备注</text>
+          <text>送电池吗？</text>
+        </view>
+        <view class="flex justify-center pt-3 mt-2 contact-service">
+          <view class="flex items-center">
+            <nut-icon name="service"></nut-icon>
+            <text class="ml-2">联系客服</text>
+          </view>
         </view>
       </view>
     </view>
@@ -203,8 +216,12 @@ function jumpAddresList() {
       }
     }
   }
-  .order-remark {
-    margin-bottom: calc(80px + env(safe-area-inset-bottom));
+  .container {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+  .address-edit {
+    width: 80px;
+    text-align: right;
   }
   .contact-service {
     border-top: 1px solid #e5e5e5;

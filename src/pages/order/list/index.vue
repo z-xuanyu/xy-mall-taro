@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-06-30 15:47:28
+ * @LastEditTime: 2022-06-30 17:01:31
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -59,9 +59,9 @@ function onRefresherRefresh() {
 }
 
 // 跳转订单详细
-function jumpOrderDetail() {
+function jumpOrderDetail(id: string) {
   navigateTo({
-    url: '/pages/order/detail/index',
+    url: '/pages/order/detail/index?id=' + id,
   })
 }
 
@@ -145,10 +145,10 @@ function onBack() {
     >
       <view class="order-page__list" v-if="list.length">
         <view
-          class="order-page__list-item bg-white my-3 p-3"
+          class="order-page__list-item bg-white rounded-xxs m-3 p-3"
           v-for="orderItem in list"
           :key="orderItem._id"
-          @click="jumpOrderDetail"
+          @click="jumpOrderDetail(orderItem._id)"
         >
           <view class="flex items-center justify-between">
             <text class="text-base">订单号:wx147878787</text>

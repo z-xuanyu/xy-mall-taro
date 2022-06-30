@@ -4,11 +4,10 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 10:07:20
- * @LastEditTime: 2022-06-27 14:31:56
+ * @LastEditTime: 2022-06-30 17:17:42
  * @Description: 商品列表
 -->
 <script setup lang="ts">
-import { Tag } from '@nutui/nutui-taro'
 import Taro from '@tarojs/taro'
 import type { PropType } from 'vue';
 
@@ -49,12 +48,9 @@ function jumpDetail(id: string) {
       <view class="goods-list-column__item-title text-overflow-2 px-2">
         {{ item.title }}
       </view>
-      <view class="px-2">
-        <Tag type="danger" plain round>限时抢购</Tag>
-      </view>
-      <view class="px-2 flex justify-between items-center">
+      <view class="p-2 flex justify-between items-center">
         <nut-price :price="item.price" :thousands="true" :decimal-digits="0" />
-        <nut-icon name="cart" color="red" :size="18"></nut-icon>
+        <nut-icon name="cart" color="red" :size="16"></nut-icon>
       </view>
     </view>
   </view>
