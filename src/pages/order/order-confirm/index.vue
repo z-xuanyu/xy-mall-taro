@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-06-30 10:52:10
+ * @LastEditTime: 2022-06-30 14:40:13
  * @Description: 确认订单
 -->
 <script lang="ts">
@@ -13,19 +13,13 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { navigateTo, useDidShow, useRouter } from '@tarojs/taro'
+import { navigateTo, useDidShow, useRouter, showToast } from '@tarojs/taro'
 import AddressCard from './components/AddressCard.vue'
 import { getCache } from '@/utils/storageCache'
 import { getUserAddress, findUserAddress } from '@/api/user'
+import { createOrder } from '@/api/order'
 import { ref } from 'vue'
-interface Address {
-  _id: string
-  name: string
-  phone: string
-  address: string
-  detail: string
-  isDefault: boolean
-}
+import { Address } from './type'
 
 const route = useRouter()
 
@@ -61,10 +55,36 @@ function jumpReceipt(): void {
 }
 
 // 提交订单
-function onSubmitOrder(): void {
-  navigateTo({
-    url: '/pages/order/pay-success/index',
-  })
+async function onSubmitOrder() {
+  if (!addressData.value?._id) {
+    return showToast({
+      title: '请选择收货地址',
+      icon: 'none',
+    })
+  }
+  try {
+    const data = {
+      way: 0,
+      products: goodsList,
+      cartIds: goodsList.map((item) => item._id),
+      addressId: addressData.value?._id as string,
+      paymentType: 1,
+      source: '小程序',
+      totalPrice: totalPrice,
+      payment: totalPrice,
+      remark: '小程序订单测试',
+    }
+    await createOrder(data)
+    navigateTo({
+      url: '/pages/order/pay-success/index',
+    })
+  } catch (error) {
+    console.log(error)
+    showToast({
+      title: '提交订单失败',
+      icon: 'none',
+    })
+  }
 }
 
 // 商品总额

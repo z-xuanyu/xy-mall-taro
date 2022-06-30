@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-30 10:13:41
+ * @LastEditTime: 2022-06-30 14:36:35
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -71,6 +71,13 @@ async function onDelOk() {
     })
   }
 }
+
+// 跳转全部商品列表
+function jumpAllGoods() {
+  navigateTo({
+    url: '/pages/goods/list/index',
+  })
+}
 </script>
 
 <template>
@@ -99,7 +106,7 @@ async function onDelOk() {
         <text>购物车数量</text>
         <text class="ml-1 text-primary">{{ cartList.length }}</text>
       </view>
-      <nut-tag type="primary" @click="isEdit = !isEdit" plain>{{
+      <nut-tag v-if="cartList.length" type="primary" @click="isEdit = !isEdit" plain>{{
         isEdit ? '取消' : '编辑'
       }}</nut-tag>
     </view>
@@ -128,8 +135,21 @@ async function onDelOk() {
         </view>
       </nut-checkboxgroup>
     </view>
+    <!-- 购物车空 -->
+    <view class="cart-empty" v-if="cartList.length === 0">
+      <view class="text-center">
+        <image src="../../assets/images/empty/cart.png"></image>
+        <view class="text-grey text-sm mb-5">购物车空空如也</view>
+        <view class="px-10">
+          <nut-button type="primary" @click="jumpAllGoods" block>去逛逛,添加点什么吧</nut-button>
+        </view>
+      </view>
+    </view>
     <!-- 底部cardbar -->
-    <view class="cart-bar bg-white flex justify-between items-center px-2 py-1">
+    <view
+      class="cart-bar bg-white flex justify-between items-center px-2 py-1"
+      v-if="cartList.length"
+    >
       <view class="flex items-center">
         <nut-checkbox v-model="isSelectAll" @change="changeAllSelect" label="复选框"
           >全选</nut-checkbox
