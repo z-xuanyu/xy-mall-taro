@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:59:04
- * @LastEditTime: 2022-06-29 15:11:01
+ * @LastEditTime: 2022-06-30 10:32:20
  * @Description: 用户地址
 -->
 <script lang="ts">
@@ -13,9 +13,11 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { navigateTo, showToast, useDidShow } from '@tarojs/taro'
+import { navigateTo, showToast, useDidShow, useRouter } from '@tarojs/taro'
 import { ref } from 'vue'
 import { getUserAddress, deleteUserAddress } from '@/api/user'
+
+const route = useRouter()
 
 interface AddressItem {
   // 地址ID
@@ -43,7 +45,7 @@ async function fetchData() {
     addressName: item.name,
     defaultAddress: item.isDefault,
     phone: item.phone,
-    fullAddress: item.address,
+    fullAddress: item.address + item.detail,
   }))
   isLoading.value = false
 }
@@ -70,8 +72,14 @@ function editClick(_: Event, item: AddressItem) {
     url: `/pages/user/menus/address/edit/index?id=${item.id}`,
   })
 }
-
-function itemClick() {}
+// 点击地址item
+function itemClick(_: Event, item: AddressItem) {
+  if (route.params.from && route.params.from === 'orderConfirm') {
+    navigateTo({
+      url: '/pages/order/order-confirm/index?id=' + item.id,
+    })
+  }
+}
 
 // 添加地址
 function addAddress() {

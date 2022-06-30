@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-17 10:58:12
- * @LastEditTime: 2022-06-29 15:05:25
+ * @LastEditTime: 2022-06-29 15:41:25
  * @Description: 用户地址编辑
 -->
 <script lang="ts">
@@ -20,9 +20,8 @@ import {
   navigateBack,
   useRouter,
   setNavigationBarTitle,
-  useDidShow,
 } from '@tarojs/taro'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getPermission } from '@/utils/getPermission'
 import { addUserAddress, findUserAddress, updateUserAddress } from '@/api/user'
 
@@ -34,7 +33,7 @@ if (addressId) {
   })
 }
 
-useDidShow(async () => {
+onMounted(async () => {
   if (addressId) {
     const info = await findUserAddress(addressId)
     addresInfo.value = info
@@ -81,10 +80,13 @@ async function getUserAddress() {
   await getPermission({ code: 'scope.address', name: '通讯地址' })
   chooseAddress({
     success: function(res) {
+      console.log(res, 78888)
       const { userName, telNumber, provinceName, cityName, countyName, detailInfo } = res
       addresInfo.value.name = userName
       addresInfo.value.phone = telNumber
-      addresInfo.value.address = provinceName + cityName + countyName + detailInfo
+      addresInfo.value.address = provinceName + cityName + countyName
+      addresInfo.value.detail = detailInfo
+      console.log(addresInfo.value, 'addresInfo.value')
     },
   })
 }
@@ -93,6 +95,7 @@ async function clickRightIcon() {
   await getPermission({ code: 'scope.userLocation', name: '地址位置' })
   chooseLocation({
     success: function(res) {
+      console.log(res, 7788)
       addresInfo.value.address = res.address
     },
   })

@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 15:08:57
- * @LastEditTime: 2022-06-29 10:00:24
+ * @LastEditTime: 2022-06-30 10:13:41
  * @Description: 购物车
 -->
 <script lang="ts">
@@ -19,6 +19,7 @@ import { ref } from 'vue'
 import { useCart, fetchCart } from '@/hooks/useCart'
 import { isWeb } from '@/utils/env'
 import { deleteCart } from '@/api/cart'
+import { setCache } from '@/utils/storageCache'
 
 const selectGoodsGroupRef = ref<HTMLElement | null>(null)
 const { cartList, selectGoodsGroup, totalPrice, isSelectAll } = useCart()
@@ -33,6 +34,10 @@ function handleToSettle() {
       icon: 'none',
     })
   }
+  const selectPayGoods = cartList.value.filter((item: any) =>
+    selectGoodsGroup.value.includes(item._id)
+  )
+  setCache('selectPayGoods', selectPayGoods)
   navigateTo({
     url: '/pages/order/order-confirm/index',
   })
@@ -159,7 +164,7 @@ async function onDelOk() {
   }
   .cart-list {
     padding: 0 10px;
-    margin-bottom: 80px;
+    padding-bottom: 60px;
   }
   .nut-checkbox {
     padding: 0 8px;

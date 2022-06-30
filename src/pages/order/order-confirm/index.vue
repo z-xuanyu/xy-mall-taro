@@ -4,55 +4,97 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-06-24 17:58:10
+ * @LastEditTime: 2022-06-30 10:52:10
  * @Description: 确认订单
 -->
-<script setup lang="ts">
-import Taro from '@tarojs/taro'
-import { defineComponent } from 'vue'
-import AddressCard from './components/AddressCard.vue'
-
-defineComponent({
+<script lang="ts">
+export default {
   name: 'OrderConfirmPage',
+}
+</script>
+<script setup lang="ts">
+import { navigateTo, useDidShow, useRouter } from '@tarojs/taro'
+import AddressCard from './components/AddressCard.vue'
+import { getCache } from '@/utils/storageCache'
+import { getUserAddress, findUserAddress } from '@/api/user'
+import { ref } from 'vue'
+interface Address {
+  _id: string
+  name: string
+  phone: string
+  address: string
+  detail: string
+  isDefault: boolean
+}
+
+const route = useRouter()
+
+// 商品列表
+const goodsList = getCache('selectPayGoods') || []
+//收货地址
+const addressData = ref<Address | undefined>({
+  _id: '',
+  name: '',
+  phone: '',
+  address: '',
+  detail: '',
+  isDefault: false,
+})
+
+useDidShow(() => {
+  if (route.params.id) {
+    findUserAddress(route.params.id).then((res: Address) => {
+      addressData.value = res
+    })
+  } else {
+    getUserAddress().then((res: Array<Address>) => {
+      addressData.value = res.find((item) => item.isDefault)
+    })
+  }
 })
 
 // 跳转发票页面
 function jumpReceipt(): void {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/receipt/index',
   })
 }
 
 // 提交订单
 function onSubmitOrder(): void {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/pay-success/index',
   })
 }
+
+// 商品总额
+const totalPrice = goodsList.reduce((total, item) => {
+  return total + item.price * item.num
+}, 0)
 </script>
 
 <template>
   <view class="order-confirm-page pb-10 mb-10">
-    <AddressCard></AddressCard>
+    <AddressCard :addressData="addressData" />
     <!-- 商品列表 -->
     <view class="goods-list px-3 mt-2 pb-2 bg-white">
       <nut-cell icon="shop" title="XYMALL旗舰店"></nut-cell>
-      <view class="goods-list__item flex mb-3" v-for="item in 1" :key="item">
-        <image class="goods-img" src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png" />
+      <view class="goods-list__item flex mb-3" v-for="item in goodsList" :key="item._id">
+        <image class="goods-img" :src="item.productPic" />
         <view class="flex-1 ml-2">
           <text class="goods-list__item-title text-sm text-overflow-2">
-            白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
+            {{ item.productName }}
           </text>
           <view class="goods-list__item-price my-1 text-base">
             <text>
               <text>¥</text>
-              <text class="text-sm">999</text>
-              x 1</text
+              <text class="text-sm">{{ item.price }}</text>
+              x {{ item.num }}</text
             >
           </view>
           <view class="goods-list__item-sku text-xs text-grey">
-            <text>颜色：白色</text>
-            <text>尺码：XL</text>
+            <text>规格:</text>
+            <text>{{ item.skuName }}</text>
           </view>
         </view>
       </view>
@@ -61,7 +103,7 @@ function onSubmitOrder(): void {
     <view class="pay-detail px-3 text-sm bg-white pb-2 mt-2">
       <view class="flex justify-between py-2 border-b">
         <text>商品总额</text>
-        <text>￥4284.00</text>
+        <text>￥{{ totalPrice }}</text>
       </view>
       <view class="flex justify-between py-2 border-b">
         <text>运费</text>
@@ -93,13 +135,13 @@ function onSubmitOrder(): void {
         </view>
       </view>
       <view class="text-right py-2 ">
-        <text class="text-sm mr-2 text-grey">共三件</text>
+        <text class="text-sm mr-2 text-grey">共{{ goodsList.length }}件</text>
         <text class="text-sm">小计</text>
-        <nut-price :price="4273" size="normal" :thousands="true" />
+        <nut-price :price="totalPrice" size="normal" :thousands="true" />
       </view>
     </view>
     <view class="submit-btn px-3 bg-white safe-area-bottom items-end flex justify-between">
-      <nut-price class="pb-2" :price="4273" :thousands="true" />
+      <nut-price class="pb-2" :price="totalPrice" :thousands="true" />
       <view class="text-right py-2">
         <nut-button type="primary" @click="onSubmitOrder">提交订单</nut-button>
       </view>
@@ -130,6 +172,9 @@ function onSubmitOrder(): void {
         border-radius: 5px;
       }
     }
+  }
+  .pay-detail {
+    padding-bottom: 60px;
   }
   .submit-btn {
     position: fixed;
