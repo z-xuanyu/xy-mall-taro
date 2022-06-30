@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-18 14:14:14
- * @LastEditTime: 2022-06-30 14:40:13
+ * @LastEditTime: 2022-06-30 15:05:36
  * @Description: 确认订单
 -->
 <script lang="ts">
@@ -25,6 +25,7 @@ const route = useRouter()
 
 // 商品列表
 const goodsList = getCache('selectPayGoods') || []
+
 //收货地址
 const addressData = ref<Address | undefined>({
   _id: '',

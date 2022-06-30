@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-30 11:41:22
- * @LastEditTime: 2022-06-30 14:26:05
+ * @LastEditTime: 2022-06-30 15:11:13
  * @Description: Modify here please
  */
 
@@ -47,4 +47,6 @@ export interface OrderConfirmParams {
 export interface OrderListParams {
   // 订单状态
   status: number
+  pageNumber?: number
+  pageSize?: number
 }

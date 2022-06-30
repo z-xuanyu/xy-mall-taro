@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-06-06 11:23:44
+ * @LastEditTime: 2022-06-30 15:47:28
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -13,22 +13,44 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Tabs, TabPane, Card, Navbar } from '@nutui/nutui-taro'
-import Taro from '@tarojs/taro'
+import { ref, onMounted } from 'vue'
+import { Tabs, TabPane, Card, Navbar, Empty } from '@nutui/nutui-taro'
+import { showToast, navigateTo, navigateBack, showModal } from '@tarojs/taro'
 import { isWeb } from '@/utils/env'
+import { cancelOrder, getOrderList } from '@/api/order'
 
 const tabActive = ref(0)
-
+// 订单列表
+const list = ref<any>([])
 const scrollTop = ref(0)
 const refresherTriggered = ref(false)
+
+onMounted(() => {
+  getOrderListData()
+})
+
+// 获取订单列表
+async function getOrderListData() {
+  const res = await getOrderList({
+    status: tabActive.value,
+    pageNumber: 1,
+    pageSize: 10,
+  })
+  list.value = res
+}
+
+// tab change
+function tabChange(op) {
+  tabActive.value = op.paneKey
+  getOrderListData()
+}
 
 function onRefresherRefresh() {
   refresherTriggered.value = true
   setTimeout(() => {
     refresherTriggered.value = false
     scrollTop.value = 0
-    Taro.showToast({
+    showToast({
       title: '刷新成功',
       icon: 'success',
       duration: 2000,
@@ -38,41 +60,49 @@ function onRefresherRefresh() {
 
 // 跳转订单详细
 function jumpOrderDetail() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/detail/index',
   })
 }
 
 // 取消订单
-function onCancelOrder() {
-  Taro.showToast({
-    title: '取消订单',
-    icon: 'none',
+function onCancelOrder(item) {
+  showModal({
+    title: '提示',
+    content: '确定取消订单吗？',
+    success: async () => {
+      await cancelOrder(item._id)
+      getOrderListData()
+      showToast({
+        title: '取消成功',
+        icon: 'success',
+        duration: 2000,
+      })
+    },
   })
 }
 // 点击支付
 function onOrderBtn(status: number): void {
-  console.log(status, 66666)
   switch (status) {
     case 1:
-      Taro.showToast({
+      showToast({
         title: '支付',
         icon: 'none',
       })
       break
     case 2:
-      Taro.navigateTo({
+      navigateTo({
         url: '/pages/order/send/index',
       })
       break
     case 3:
-      Taro.navigateTo({
+      navigateTo({
         url: '/pages/order/receive/index',
       })
       break
     case 4:
       // 跳转评价
-      Taro.navigateTo({
+      navigateTo({
         url: '/pages/order/comment/index',
       })
       break
@@ -83,20 +113,20 @@ function onOrderBtn(status: number): void {
 
 // 订单售后
 function onApplyOrderAfterSales() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/apply-service/index',
   })
 }
 
 function onBack() {
-  Taro.navigateBack()
+  navigateBack()
 }
 </script>
 <template>
   <view class="order-page">
     <Navbar v-if="isWeb" @on-click-back="onBack" title="我的订单"></Navbar>
     <view class="order-page__tabs">
-      <Tabs v-model="tabActive">
+      <Tabs v-model="tabActive" type="smile" @change="tabChange">
         <TabPane title="全部"> </TabPane>
         <TabPane title="待付款"> </TabPane>
         <TabPane title="待发货"> </TabPane>
@@ -113,43 +143,43 @@ function onBack() {
       @refresherrefresh="onRefresherRefresh"
       :refresherThreshold="60"
     >
-      <view class="order-page__list">
+      <view class="order-page__list" v-if="list.length">
         <view
           class="order-page__list-item bg-white my-3 p-3"
-          v-for="orderItem in 5"
-          :key="orderItem"
+          v-for="orderItem in list"
+          :key="orderItem._id"
           @click="jumpOrderDetail"
         >
           <view class="flex items-center justify-between">
-            <text class="text-base">订单号 3545456456</text>
+            <text class="text-base">订单号:wx147878787</text>
             <text class="text-red mr-4 text-base">待付款</text>
           </view>
           <view class="rder-page__list-item__goods pt-2">
             <Card
-              v-for="item in 3"
-              :key="item"
+              v-for="item in orderItem.products"
+              :key="item._id"
               class="mb-3"
-              img-url="https://cdn-we-retail.ym.tencent.com/tsr/goods/dz-3b.png"
-              title="腾讯极光盒子4智能网络电视机顶盒6K千兆网络机顶盒4K高分辨率"
-              price="88"
+              :img-url="item.productPic"
+              :title="item.productName"
+              :price="String(item.price)"
               vipPrice="188"
               shopDesc="自运营"
               delivery="包邮"
-              shopName="颜色：紫色 x 1"
+              :shopName="`规格：${item.skuName} x ${item.num}`"
             >
             </Card>
           </view>
           <view class="text-right px-3">
-            <text class="text-grey text-xs mr-2">总价￥100.1，运费￥0.00</text>
+            <text class="text-grey text-xs mr-2">总价￥{{ orderItem.totalPrice }}，运费￥0.00</text>
             <text class="text-gray text-sm">实际</text>
-            <nut-price :price="88" size="normal" :thousands="true" />
+            <nut-price :price="orderItem.payment" size="normal" :thousands="true" />
           </view>
           <view class="text-right mt-2">
             <nut-button
               type="default"
-              v-if="[1, 2].includes(orderItem)"
+              v-if="[1, 2].includes(orderItem.status)"
               class="mx-2"
-              @click.stop="onCancelOrder"
+              @click.stop="onCancelOrder(orderItem)"
               size="small"
               >取消订单</nut-button
             >
@@ -163,7 +193,7 @@ function onBack() {
             >
             <nut-button
               type="primary"
-              v-if="[1, 5].includes(orderItem)"
+              v-if="[1, 5].includes(orderItem.status)"
               class="px-6"
               @click.stop="onOrderBtn(orderItem)"
               size="small"
@@ -196,6 +226,10 @@ function onBack() {
           </view>
         </view>
       </view>
+      <!-- 空数据 -->
+      <template v-if="!list.length">
+        <Empty description="暂无订单数据"></Empty>
+      </template>
     </scroll-view>
   </view>
 </template>
