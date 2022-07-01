@@ -4,15 +4,16 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-06-28 16:13:40
+ * @LastEditTime: 2022-07-01 11:43:12
  * @Description: 商品sku选择组件
 -->
 <script setup lang="ts">
-import { switchTab, showToast } from '@tarojs/taro'
+import { switchTab, showToast, navigateTo } from '@tarojs/taro'
 import { type PropType, ref, onMounted, computed } from 'vue'
 import { addCart } from '@/api/cart';
 import { useUserStore } from '@/stores/modules/user'
 import { useCart, fetchCart } from '@/hooks/useCart'
+import { setCache } from '@/utils/storageCache';
 
 const useUser = useUserStore()
 const { shopCartNum } = useCart()
@@ -160,7 +161,11 @@ async function clickBtnOperate(op:any) {
     skuId: props.info.skuType === 2 ? currentSelectSku.value._id : null,
   }
   if(isBuyNow.value) {
-    console.log('立即购买');
+    const selectPayGoods = [data]
+    setCache('selectPayGoods', selectPayGoods)
+     navigateTo({
+        url: '/pages/order/order-confirm/index?type=buyNow',
+     })
     return false
   }
   await addCart(data)
@@ -246,7 +251,11 @@ function toNav(item: jumpItem) {
       @clickBtnOperate="clickBtnOperate"
       @close="close"
       style="height: auto"
-    ></nut-sku>
+    >
+      <template #sku-header-extra>
+        <span class="nut-sku-header-right-extra">库存剩余：{{ currentSelectSku.inventory }} </span>
+      </template>
+    </nut-sku>
   </view>
 </template>
 

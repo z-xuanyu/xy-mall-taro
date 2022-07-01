@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-06-29 10:06:30
- * @LastEditTime: 2022-06-29 12:09:31
+ * @LastEditTime: 2022-07-01 11:46:49
  * @Description: 用户相关借口
  */
 import httpService from '@/utils/http/httpService'
@@ -13,6 +13,7 @@ import { AddUserAddressParams } from './type'
 enum Api {
   User = 'user',
   Address = 'user/address',
+  ViewsHistory = 'user/viewsHistory',
 }
 
 // 获取用户地址列表
@@ -30,3 +31,6 @@ export const updateUserAddress = (id: string, data: AddUserAddressParams) =>
 
 // 删除用户地址
 export const deleteUserAddress = (id: string) => httpService.delete(`${Api.Address}/${id}`)
+
+// 获取用户浏览记录
+export const getUserViewsHistory = () => httpService.get(Api.ViewsHistory)

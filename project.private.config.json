@@ -111,6 +111,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "优惠券",
+          "pathName": "pages/user/menus/coupon/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
