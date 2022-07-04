@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-20 11:02:51
- * @LastEditTime: 2022-07-04 11:41:36
+ * @LastEditTime: 2022-07-04 11:53:45
  * @Description: Modify here please
 -->
 <script lang="ts">
@@ -35,18 +35,17 @@ export default defineComponent({
       },
     ])
 
-    // 上传之前
-    function beforeUpload(file) {
-      console.log('beforeUpload', file)
+    // 上传失败
+    function onUploadError(file, error) {
+      console.log('onUploadError', file, error)
     }
-
     return {
       rateValaue,
       rateContent,
       uploadUrl,
       radioVal,
       defaultFileList,
-      beforeUpload,
+      onUploadError,
     }
   },
 })
@@ -88,6 +87,7 @@ export default defineComponent({
         maximum="9"
         multiple
         list-type="picture"
+        @failure="onUploadError"
       ></nut-uploader>
       <nut-radiogroup v-model="radioVal">
         <nut-radio :label="1">匿名评价</nut-radio>
