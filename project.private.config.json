@@ -118,6 +118,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "我的积分",
+          "pathName": "pages/user/menus/integral/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
