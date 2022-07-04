@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-07-04 11:02:19
+ * @LastEditTime: 2022-07-04 14:15:41
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -15,17 +15,19 @@ export default {
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Tabs, TabPane, Card, Navbar, Empty } from '@nutui/nutui-taro'
-import { showToast, navigateTo, navigateBack, showModal } from '@tarojs/taro'
+import { showToast, navigateTo, navigateBack, showModal, useRouter } from '@tarojs/taro'
 import { isWeb } from '@/utils/env'
 import { cancelOrder, getOrderList } from '@/api/order'
 
-const tabActive = ref(0)
+const tabActive = ref<number>(0)
 // 订单列表
 const list = ref<any>([])
 const scrollTop = ref(0)
 const refresherTriggered = ref(false)
+const route = useRouter()
 
 onMounted(() => {
+  tabActive.value = (route.params.status || 0) as number
   getOrderListData()
 })
 

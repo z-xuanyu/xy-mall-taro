@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-12 14:02:03
- * @LastEditTime: 2022-06-29 14:59:52
+ * @LastEditTime: 2022-07-04 14:10:10
  * @Description: 用户中心
 -->
 <script lang="ts">
@@ -25,37 +25,37 @@ const orderTagInfos = ref([
   {
     title: '待付款',
     iconName: 'daifukuan',
-    orderNum: 5,
+    orderNum: 0,
     tabType: 5,
     status: 1,
   },
   {
     title: '待发货',
     iconName: 'daifahuo',
-    orderNum: 1,
+    orderNum: 0,
     tabType: 10,
-    status: 1,
+    status: 2,
   },
   {
     title: '待收货',
     iconName: 'daishouhuo',
-    orderNum: 1,
+    orderNum: 0,
     tabType: 40,
-    status: 1,
+    status: 3,
   },
   {
     title: '待评价',
     iconName: 'xinxi',
     orderNum: 0,
     tabType: 60,
-    status: 1,
+    status: 4,
   },
   {
     title: '退款/售后',
     iconName: 'tuikuan',
     orderNum: 0,
     tabType: 0,
-    status: 1,
+    status: 5,
   },
 ])
 

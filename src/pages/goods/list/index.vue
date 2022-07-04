@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:08:37
- * @LastEditTime: 2022-06-06 10:17:09
+ * @LastEditTime: 2022-07-04 15:24:10
  * @Description: 全部商品列表
 -->
 <script lang="ts">
@@ -15,7 +15,19 @@ export default {
 <script setup lang="ts">
 import GoodsList from '@/components/GoodsList.vue'
 import { Menu, MenuItem } from '@nutui/nutui-taro'
-import { ref } from 'vue'
+import { getGoods } from '@/api/goods'
+import { ref, onMounted } from 'vue'
+
+const list = ref([])
+
+onMounted(() => {
+  fetchGoods()
+})
+
+async function fetchGoods() {
+  const res = await getGoods()
+  list.value = res
+}
 
 const menuOptions = [
   { text: '全部商品', value: 0 },
@@ -42,7 +54,7 @@ const sortValue = ref('a')
       </Menu>
     </view>
 
-    <GoodsList></GoodsList>
+    <GoodsList :list="list"></GoodsList>
   </view>
 </template>
 

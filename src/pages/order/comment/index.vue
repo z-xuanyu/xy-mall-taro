@@ -4,8 +4,8 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-20 11:02:51
- * @LastEditTime: 2022-07-04 11:53:45
- * @Description: Modify here please
+ * @LastEditTime: 2022-07-04 14:20:46
+ * @Description: 商品评价
 -->
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
@@ -23,29 +23,25 @@ export default defineComponent({
     const rateContent = ref<string>('')
     const uploadUrl = ref<string>('https://xy-mall-web-api.zhouxuanyu.com/upload')
     const radioVal = ref<number>(0)
+    const images = ref<string[]>([])
+    // 上传成功
+    function onUploadSuccess(file) {
+      console.log(file, 'success')
+      const data = JSON.parse(file.responseText.data)
+      images.value.push(data.result)
+    }
 
-    const defaultFileList = ref([
-      {
-        name: '文件1.png',
-        url:
-          'https://m.360buyimg.com/babel/jfs/t1/164410/22/25162/93384/616eac6cE6c711350/0cac53c1b82e1b05.gif',
-        status: 'success',
-        message: '上传成功',
-        type: 'image',
-      },
-    ])
-
-    // 上传失败
-    function onUploadError(file, error) {
-      console.log('onUploadError', file, error)
+    // 移除上传文件
+    function onUploadDelete(options) {
+      images.value.splice(options.index, 1)
     }
     return {
       rateValaue,
       rateContent,
       uploadUrl,
       radioVal,
-      defaultFileList,
-      onUploadError,
+      onUploadSuccess,
+      onUploadDelete,
     }
   },
 })
@@ -57,7 +53,7 @@ export default defineComponent({
     <view class="goods-card flex p-4 bg-white">
       <image src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" />
       <view class="flex-1 ml-2">
-        <view class="text-overflow-2">
+        <view class="text-overflow-2 text-xs">
           白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙
         </view>
         <view class="text-xs mt-1 text-grey">
@@ -83,11 +79,12 @@ export default defineComponent({
     <view class="rate-upload-img bg-white p-4">
       <nut-uploader
         :url="uploadUrl"
-        v-model:file-list="defaultFileList"
         maximum="9"
         multiple
         list-type="picture"
-        @failure="onUploadError"
+        :xhr-state="201"
+        @success="onUploadSuccess"
+        @delete="onUploadDelete"
       ></nut-uploader>
       <nut-radiogroup v-model="radioVal">
         <nut-radio :label="1">匿名评价</nut-radio>

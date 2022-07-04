@@ -4,13 +4,13 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 17:43:18
- * @LastEditTime: 2022-06-24 18:20:37
+ * @LastEditTime: 2022-07-04 14:17:02
  * @Description: Modify here please
 -->
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { Badge } from '@nutui/nutui-taro'
-import Taro from '@tarojs/taro'
+import { navigateTo } from '@tarojs/taro'
 
 interface OrderTagInfoItem {
   orderNum: number
@@ -35,16 +35,19 @@ defineProps({
   },
 })
 
-// eslint-disable-next-line no-undef
-const emits = defineEmits(['onClickTop', 'onClickItem'])
-
 function onClickItem(item) {
-  emits('onClickItem', item)
+  if (item.status === 5) {
+    console.log('售后')
+    return false
+  }
+  navigateTo({
+    url: `/pages/order/list/index?status=${item.status}`,
+  })
 }
 
 // 全部订单
 function onClickTop() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/order/list/index',
   })
 }
