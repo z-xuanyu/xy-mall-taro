@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-05-26 12:19:44
+ * @LastEditTime: 2022-07-04 09:56:11
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
@@ -39,7 +39,7 @@ async function handleLogin() {
 <template>
   <view class="user-center-card">
     <!-- 未登录的情况 -->
-    <block v-if="!isLogin">
+    <block v-if="!isLogin && !userInfo.nickName">
       <view class="user-center-card__header" @click="handleLogin">
         <nut-avatar
           size="normal"

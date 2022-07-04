@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-20 11:02:51
- * @LastEditTime: 2022-05-20 12:05:03
+ * @LastEditTime: 2022-07-04 11:41:36
  * @Description: Modify here please
 -->
 <script lang="ts">
@@ -21,14 +21,32 @@ export default defineComponent({
   setup() {
     const rateValaue = ref<number>(5)
     const rateContent = ref<string>('')
-    const uploadUrl = ref<string>('')
+    const uploadUrl = ref<string>('https://xy-mall-web-api.zhouxuanyu.com/upload')
     const radioVal = ref<number>(0)
+
+    const defaultFileList = ref([
+      {
+        name: '文件1.png',
+        url:
+          'https://m.360buyimg.com/babel/jfs/t1/164410/22/25162/93384/616eac6cE6c711350/0cac53c1b82e1b05.gif',
+        status: 'success',
+        message: '上传成功',
+        type: 'image',
+      },
+    ])
+
+    // 上传之前
+    function beforeUpload(file) {
+      console.log('beforeUpload', file)
+    }
 
     return {
       rateValaue,
       rateContent,
       uploadUrl,
       radioVal,
+      defaultFileList,
+      beforeUpload,
     }
   },
 })
@@ -64,7 +82,13 @@ export default defineComponent({
     </div>
     <!-- 图片上传 -->
     <view class="rate-upload-img bg-white p-4">
-      <nut-uploader :url="uploadUrl"></nut-uploader>
+      <nut-uploader
+        :url="uploadUrl"
+        v-model:file-list="defaultFileList"
+        maximum="9"
+        multiple
+        list-type="picture"
+      ></nut-uploader>
       <nut-radiogroup v-model="radioVal">
         <nut-radio :label="1">匿名评价</nut-radio>
       </nut-radiogroup>

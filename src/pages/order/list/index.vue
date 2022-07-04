@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-06-30 17:01:31
+ * @LastEditTime: 2022-07-04 11:02:19
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -70,20 +70,22 @@ function onCancelOrder(item) {
   showModal({
     title: '提示',
     content: '确定取消订单吗？',
-    success: async () => {
-      await cancelOrder(item._id)
-      getOrderListData()
-      showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000,
-      })
+    success: async (res) => {
+      if (res.confirm) {
+        await cancelOrder(item._id)
+        getOrderListData()
+        showToast({
+          title: '取消成功',
+          icon: 'success',
+          duration: 2000,
+        })
+      }
     },
   })
 }
 // 点击支付
-function onOrderBtn(status: number): void {
-  switch (status) {
+function onOrderBtn(item): void {
+  switch (item.status) {
     case 1:
       showToast({
         title: '支付',
@@ -91,13 +93,27 @@ function onOrderBtn(status: number): void {
       })
       break
     case 2:
+      // 待发货-再次购买
       navigateTo({
-        url: '/pages/order/send/index',
+        url: `/pages/goods/detail/index?goods_id=${item.products[0].productId}`,
       })
       break
     case 3:
-      navigateTo({
-        url: '/pages/order/receive/index',
+      // 待收货-确认收货
+      showModal({
+        title: '提示',
+        content: '确定已收到商品吗？',
+        success: async (res) => {
+          if (res.confirm) {
+            await cancelOrder(item._id)
+            getOrderListData()
+            showToast({
+              title: '收货成功',
+              icon: 'success',
+              duration: 2000,
+            })
+          }
+        },
       })
       break
     case 4:
@@ -111,6 +127,21 @@ function onOrderBtn(status: number): void {
   }
 }
 
+// 订单状态文本
+function getOrderStatusText(status: number): string {
+  switch (status) {
+    case 1:
+      return '待付款'
+    case 2:
+      return '待发货'
+    case 3:
+      return '待收货'
+    case 4:
+      return '待评价'
+    default:
+      return '已取消'
+  }
+}
 // 订单售后
 function onApplyOrderAfterSales() {
   navigateTo({
@@ -131,7 +162,7 @@ function onBack() {
         <TabPane title="待付款"> </TabPane>
         <TabPane title="待发货"> </TabPane>
         <TabPane title="待收货"> </TabPane>
-        <TabPane title="已完成"> </TabPane>
+        <TabPane title="待评价"> </TabPane>
       </Tabs>
     </view>
     <scroll-view
@@ -152,7 +183,7 @@ function onBack() {
         >
           <view class="flex items-center justify-between">
             <text class="text-base">订单号:wx147878787</text>
-            <text class="text-red mr-4 text-base">待付款</text>
+            <text class="text-red mr-4 text-base">{{ getOrderStatusText(orderItem.status) }}</text>
           </view>
           <view class="rder-page__list-item__goods pt-2">
             <Card
@@ -185,7 +216,7 @@ function onBack() {
             >
             <nut-button
               type="default"
-              v-if="orderItem === 3"
+              v-if="orderItem.status === 4"
               class="mx-2"
               @click.stop="onApplyOrderAfterSales"
               size="small"
@@ -201,7 +232,7 @@ function onBack() {
             >
             <nut-button
               type="primary"
-              v-if="orderItem === 2"
+              v-if="orderItem.status === 2"
               class="px-6"
               @click.stop="onOrderBtn(orderItem)"
               size="small"
@@ -209,7 +240,7 @@ function onBack() {
             >
             <nut-button
               type="primary"
-              v-if="orderItem === 3"
+              v-if="orderItem.status === 3"
               class="px-6"
               @click.stop="onOrderBtn(orderItem)"
               size="small"
@@ -217,7 +248,7 @@ function onBack() {
             >
             <nut-button
               type="primary"
-              v-if="orderItem === 4"
+              v-if="orderItem.status === 4"
               class="px-6"
               @click.stop="onOrderBtn(orderItem)"
               size="small"
