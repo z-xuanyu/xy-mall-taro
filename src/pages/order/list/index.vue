@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-07-04 14:15:41
+ * @LastEditTime: 2022-07-05 10:26:04
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -121,7 +121,7 @@ function onOrderBtn(item): void {
     case 4:
       // 跳转评价
       navigateTo({
-        url: '/pages/order/comment/index',
+        url: '/pages/order/comment/index?orderId=' + item._id,
       })
       break
     default:

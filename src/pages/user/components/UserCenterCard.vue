@@ -4,11 +4,11 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 15:23:58
- * @LastEditTime: 2022-07-04 09:56:11
+ * @LastEditTime: 2022-07-05 10:23:59
  * @Description: 会员中心卡片
 -->
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
+import { navigateTo } from '@tarojs/taro'
 import { ref, computed, unref } from 'vue'
 import { useUserStore } from '@/stores/modules/user'
 
@@ -23,7 +23,7 @@ const isLogin = computed(() => useUser.isLogin)
 
 // 跳转信息编辑
 function gotoUserEditPage() {
-  Taro.navigateTo({
+  navigateTo({
     url: '/pages/user/person-info/index',
   })
 }
@@ -39,7 +39,7 @@ async function handleLogin() {
 <template>
   <view class="user-center-card">
     <!-- 未登录的情况 -->
-    <block v-if="!isLogin && !userInfo.nickName">
+    <block v-if="!isLogin">
       <view class="user-center-card__header" @click="handleLogin">
         <nut-avatar
           size="normal"
