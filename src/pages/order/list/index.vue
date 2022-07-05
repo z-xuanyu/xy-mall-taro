@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-07-05 10:26:04
+ * @LastEditTime: 2022-07-05 14:37:47
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -156,7 +156,7 @@ function onBack() {
 }
 </script>
 <template>
-  <view class="order-page">
+  <view class="order-page safe-area-bottom">
     <Navbar v-if="isWeb" @on-click-back="onBack" title="我的订单"></Navbar>
     <view class="order-page__tabs">
       <Tabs v-model="tabActive" type="smile" @change="tabChange">
@@ -169,7 +169,7 @@ function onBack() {
     </view>
     <scroll-view
       :scroll-y="true"
-      style="height: 100vh;"
+      style="height: calc(100vh - 46px);"
       :scroll-top="scrollTop"
       :refresherEnabled="true"
       :refresherTriggered="refresherTriggered"

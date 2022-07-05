@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:57:34
- * @LastEditTime: 2022-07-05 11:46:31
+ * @LastEditTime: 2022-07-05 14:23:51
  * @Description: 商品评价列表
 -->
 <script lang="ts">
@@ -28,8 +28,8 @@ export default defineComponent({
       },
       images: [
         {
-          bigImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          smallImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
+          bigImgUrl: '',
+          smallImgUrl: '',
           imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
         },
       ],
