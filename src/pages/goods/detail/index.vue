@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 10:56:03
- * @LastEditTime: 2022-06-28 15:53:20
+ * @LastEditTime: 2022-07-06 14:42:43
  * @Description: 商品详情
 -->
 <script lang="ts">
@@ -22,9 +22,8 @@ import { getGoodsById } from '@/api/goods'
 const route = useRouter()
 // 商品信息
 const goodsInfo = ref<any>({})
-
-// 购物车数量
-const shopCartNum = ref(0)
+const skuName = ref<string>('')
+const buyBarRef = ref<any>(null)
 
 onBeforeMount(() => {
   fetchData()
@@ -35,8 +34,14 @@ async function fetchData() {
   if (!goods_id) return showToast({ title: '商品id不存在', icon: 'none' })
   const res = await getGoodsById(goods_id as string)
   goodsInfo.value = res
-  shopCartNum.value = 5
-  console.log(goodsInfo.value)
+}
+
+function currentSelectSku(value) {
+  skuName.value = value.skuNames.join(',')
+}
+//选择
+function handleClickSelect() {
+  buyBarRef.value?.toAddCart()
 }
 </script>
 
@@ -76,13 +81,13 @@ async function fetchData() {
     </view>
 
     <!-- 规格选择 -->
-    <view class="goods-detail__select">
+    <view class="goods-detail__select" @click="handleClickSelect">
       <view class="goods-detail__select-label">
         <text>
           已选
         </text>
         <text>
-          请选择
+          {{ skuName }}
         </text>
       </view>
 
@@ -97,7 +102,7 @@ async function fetchData() {
       详情介绍
     </view>
     <view class="goods-bottom-operation">
-      <BuyBar :info="goodsInfo"></BuyBar>
+      <BuyBar :info="goodsInfo" @select-sku="currentSelectSku" ref="buyBarRef" />
     </view>
   </view>
 </template>

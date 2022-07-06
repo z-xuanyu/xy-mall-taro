@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-13 11:02:04
- * @LastEditTime: 2022-07-05 14:37:47
+ * @LastEditTime: 2022-07-05 14:58:22
  * @Description: 用户订单页面
 -->
 <script lang="ts">
@@ -22,7 +22,7 @@ import { cancelOrder, getOrderList } from '@/api/order'
 const tabActive = ref<number>(0)
 // 订单列表
 const list = ref<any>([])
-const scrollTop = ref(0)
+const scrollTop = ref(10)
 const refresherTriggered = ref(false)
 const route = useRouter()
 
@@ -47,6 +47,7 @@ function tabChange(op) {
   getOrderListData()
 }
 
+// 下拉刷新
 function onRefresherRefresh() {
   refresherTriggered.value = true
   setTimeout(() => {
@@ -59,7 +60,10 @@ function onRefresherRefresh() {
     })
   }, 1000)
 }
-
+// 下拉底部加载更多
+function lower() {
+  console.log('lower')
+}
 // 跳转订单详细
 function jumpOrderDetail(id: string) {
   navigateTo({
@@ -156,7 +160,7 @@ function onBack() {
 }
 </script>
 <template>
-  <view class="order-page safe-area-bottom">
+  <view class="order-page">
     <Navbar v-if="isWeb" @on-click-back="onBack" title="我的订单"></Navbar>
     <view class="order-page__tabs">
       <Tabs v-model="tabActive" type="smile" @change="tabChange">
@@ -169,12 +173,13 @@ function onBack() {
     </view>
     <scroll-view
       :scroll-y="true"
-      style="height: calc(100vh - 46px);"
+      style="height: calc(100vh - 64px);"
       :scroll-top="scrollTop"
       :refresherEnabled="true"
       :refresherTriggered="refresherTriggered"
       @refresherrefresh="onRefresherRefresh"
       :refresherThreshold="60"
+      @scrolltolower="lower"
     >
       <view class="order-page__list" v-if="list.length">
         <view

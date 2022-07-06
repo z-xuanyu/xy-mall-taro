@@ -4,43 +4,63 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 14:47:31
- * @LastEditTime: 2022-05-20 14:02:25
+ * @LastEditTime: 2022-07-06 14:21:43
  * @Description: 商品评论卡片
 -->
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
-import { ref } from 'vue'
+import { navigateTo, useRouter } from '@tarojs/taro'
+import { ref, onMounted } from 'vue'
+import { getGoodsComments } from '@/api/goods'
+const route = useRouter()
 
-const rateValue = ref<number>(5)
+const commentData = ref<any>([])
 
+// 调整商品评论列表
 function jumpGoodsComments(): void {
-  Taro.navigateTo({
-    url: '/pages/goods/comment/index',
+  navigateTo({
+    url: '/pages/goods/comment/index?goods_id=' + route.params.goods_id,
   })
 }
+
+onMounted(async () => {
+  const { comments } = await getGoodsComments(route.params.goods_id as string)
+  commentData.value = comments
+})
 </script>
 
 <template>
   <view class="comment-card">
     <nut-cell-group>
-      <nut-cell title="商品评价(47)" is-link value="98.8% 好评" @click="jumpGoodsComments" />
+      <nut-cell
+        :title="`商品评价(${commentData.length})`"
+        is-link
+        value="98.8% 好评"
+        @click="jumpGoodsComments"
+      />
     </nut-cell-group>
-    <view class="comment-card__content">
+    <view class="comment-card__content mb-4" v-for="item in commentData" :key="item._id">
       <view class="comment-card__content-top">
-        <nut-avatar
-          size="normal"
-          icon="https://img12.360buyimg.com/imagetools/jfs/t1/143702/31/16654/116794/5fc6f541Edebf8a57/4138097748889987.png"
-        ></nut-avatar>
+        <nut-avatar size="normal" :icon="item?.info?.avatar"></nut-avatar>
         <view class="comment-card__content-top__user">
           <view class="name">
-            阿宇_Corder
+            {{ item?.info?.nickName }}
           </view>
-          <nut-rate icon-size="12" spacing="5" active-color="#FFC800" v-model="rateValue" />
+          <nut-rate
+            icon-size="12"
+            spacing="5"
+            disabled
+            active-color="#FFC800"
+            v-model="item.info.score"
+          />
         </view>
       </view>
       <view class="comment-card__content-text">
-        收到货了，第一时间试了一下，很漂亮很喜欢，质量也很好，给个好评，谢谢！
+        {{ item?.info?.content }}
       </view>
+    </view>
+    <!-- 没有评价信息 -->
+    <view class="text-center text-sm text-grey" v-if="!commentData.length">
+      没有评价信息
     </view>
   </view>
 </template>

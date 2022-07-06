@@ -4,7 +4,7 @@
  * @email: 969718197@qq.com
  * @github: https://github.com/z-xuanyu
  * @Date: 2022-05-16 17:19:27
- * @LastEditTime: 2022-07-01 11:43:12
+ * @LastEditTime: 2022-07-06 10:10:24
  * @Description: 商品sku选择组件
 -->
 <script setup lang="ts">
@@ -66,6 +66,14 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+})
+
+// eslint-disable-next-line no-undef
+const emit = defineEmits(['selectSku'])
+
+// eslint-disable-next-line no-undef
+defineExpose({
+  toAddCart,
 })
 
 // 是否立即购买
@@ -141,6 +149,7 @@ function findCurrentSku() {
     price: spuInfo.price,
     imagePath: spuInfo.image,
   }
+  emit('selectSku', currentSelectSku.value)
 }
 // sku确认
 async function clickBtnOperate(op:any) {
